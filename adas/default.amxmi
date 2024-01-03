@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<am:Amalthea xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:am="http://app4mc.eclipse.org/amalthea/3.2.0">
+  <hwModel>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="Core+1?type=ProcessingUnitDefinition" name="Core 1" puType="CPU"/>
+  </hwModel>
+</am:Amalthea>
