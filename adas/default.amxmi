@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <am:Amalthea xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:am="http://app4mc.eclipse.org/amalthea/3.2.0">
   <hwModel>
-    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="DefaultCore?type=ProcessingUnitDefinition" name="DefaultCore" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition" name="CPU Definition of ADAS" puType="CPU"/>
     <definitions xsi:type="am:CacheDefinition" xmi:id="CortexCacheDefinition?type=CacheDefinition" name="CortexCacheDefinition" cacheType="data" writeStrategy="writeback" nWays="4" coherency="true" exclusive="false" hitRate="0.95">
       <size value="32" unit="kB"/>
       <lineSize value="64" unit="B"/>
@@ -25,6 +25,9 @@
       <accessLatency xsi:type="am:DiscreteValueConstant" value="10"/>
       <dataRate value="400" unit="MBPerSecond"/>
     </definitions>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="Camera+CPU+Definition?type=ProcessingUnitDefinition" name="Camera CPU Definition" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="RADAR+CPU+Definition?type=ProcessingUnitDefinition" name="RADAR CPU Definition" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="LIDAR+CPU+Definition?type=ProcessingUnitDefinition" name="LIDAR CPU Definition" puType="CPU"/>
     <structures xmi:id="ADAS+Hardware?type=HwStructure" name="ADAS Hardware" structureType="System">
       <structures xmi:id="Hardware+Components?type=HwStructure" name="Hardware Components" structureType="Cluster">
         <ports xmi:id="Hardware+Components/ProcessingCluster?type=HwPort" name="ProcessingCluster" bitWidth="256" priority="0" portType="initiator" portInterface="custom"/>
@@ -39,53 +42,150 @@
         <connections xmi:id="Hardware+Components/L2_SharedConnectionHandler+--%3E+L2_SharedCache?type=HwConnection" name="L2_SharedConnectionHandler --> L2_SharedCache" port1="SharedL2ConnectionHandler/OUT?type=HwPort" port2="SharedL2Cache/IN?type=HwPort"/>
       </structures>
       <structures xmi:id="ECU?type=HwStructure" name="ECU" structureType="ECU">
-        <structures xmi:id="Microcontroller?type=HwStructure" name="Microcontroller" structureType="Microcontroller">
-          <modules xsi:type="am:Memory" xmi:id="DRAM?type=Memory" name="DRAM" frequencyDomain="DramFrequencyDomain?type=FrequencyDomain" definition="DramDefinition?type=MemoryDefinition">
-            <ports xmi:id="DRAM/DramPort?type=HwPort" name="DramPort" bitWidth="256" priority="0" portType="responder" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:Memory" xmi:id="Flash?type=Memory" name="Flash" frequencyDomain="FlashFrequencyDomain?type=FrequencyDomain" definition="FlashDefinition?type=MemoryDefinition">
-            <ports xmi:id="Flash/FlashPort?type=HwPort" name="FlashPort" bitWidth="256" priority="0" portType="responder" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_1?type=ProcessingUnit" name="ARM Cortex-A53_1" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="DefaultCore?type=ProcessingUnitDefinition">
-            <ports xmi:id="ARM+Cortex-A53_1/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:Cache" xmi:id="CortexCore1_L1Cache?type=Cache" name="CortexCore1_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
-            <ports xmi:id="CortexCore1_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
-            <ports xmi:id="CortexCore1_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_2?type=ProcessingUnit" name="ARM Cortex-A53_2" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="DefaultCore?type=ProcessingUnitDefinition">
-            <ports xmi:id="ARM+Cortex-A53_2/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:Cache" xmi:id="CortexCore2_L1Cache?type=Cache" name="CortexCore2_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
-            <ports xmi:id="CortexCore2_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
-            <ports xmi:id="CortexCore2_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_3?type=ProcessingUnit" name="ARM Cortex-A53_3" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="DefaultCore?type=ProcessingUnitDefinition">
-            <ports xmi:id="ARM+Cortex-A53_3/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:Cache" xmi:id="CortexCore3_L1Cache?type=Cache" name="CortexCore3_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
-            <ports xmi:id="CortexCore3_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
-            <ports xmi:id="CortexCore3_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_4?type=ProcessingUnit" name="ARM Cortex-A53_4" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="DefaultCore?type=ProcessingUnitDefinition">
-            <ports xmi:id="ARM+Cortex-A53_4/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:Cache" xmi:id="CortexCore4_L1Cache?type=Cache" name="CortexCore4_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
-            <ports xmi:id="CortexCore4_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
-            <ports xmi:id="CortexCore4_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:Cache" xmi:id="SharedL2Cache?type=Cache" name="SharedL2Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="SharedCacheDefinition?type=CacheDefinition">
-            <ports xmi:id="SharedL2Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
-            <ports xmi:id="SharedL2Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-          </modules>
-          <modules xsi:type="am:ConnectionHandler" xmi:id="SharedL2ConnectionHandler?type=ConnectionHandler" name="SharedL2ConnectionHandler">
-            <ports xmi:id="SharedL2ConnectionHandler/IN1?type=HwPort" name="IN1" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-            <ports xmi:id="SharedL2ConnectionHandler/IN2?type=HwPort" name="IN2" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-            <ports xmi:id="SharedL2ConnectionHandler/IN3?type=HwPort" name="IN3" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-            <ports xmi:id="SharedL2ConnectionHandler/IN4?type=HwPort" name="IN4" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
-            <ports xmi:id="SharedL2ConnectionHandler/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
-          </modules>
+        <structures xmi:id="Processing+Cluster?type=HwStructure" name="Processing Cluster" structureType="Cluster">
+          <structures xmi:id="CPU?type=HwStructure" name="CPU" structureType="Microcontroller">
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_1?type=ProcessingUnit" name="ARM Cortex-A53_1" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM+Cortex-A53_1/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core1 --> DRAM" destination="DRAM?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <dataRate value="25" unit="GBPerSecond"/>
+              </accessElements>
+              <accessElements name="Core1 --> Flash" destination="Flash?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
+                <dataRate value="2" unit="GBPerSecond"/>
+              </accessElements>
+            </modules>
+            <modules xsi:type="am:Cache" xmi:id="CortexCore1_L1Cache?type=Cache" name="CortexCore1_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
+              <ports xmi:id="CortexCore1_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
+              <ports xmi:id="CortexCore1_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+            </modules>
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_2?type=ProcessingUnit" name="ARM Cortex-A53_2" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM+Cortex-A53_2/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core2 --> DRAM" destination="DRAM?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <dataRate value="25" unit="GBPerSecond"/>
+              </accessElements>
+              <accessElements name="Core2 --> Flash" destination="Flash?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
+                <dataRate value="2" unit="GBPerSecond"/>
+              </accessElements>
+            </modules>
+            <modules xsi:type="am:Cache" xmi:id="CortexCore2_L1Cache?type=Cache" name="CortexCore2_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
+              <ports xmi:id="CortexCore2_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
+              <ports xmi:id="CortexCore2_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+            </modules>
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_3?type=ProcessingUnit" name="ARM Cortex-A53_3" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM+Cortex-A53_3/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core3 --> DRAM" destination="DRAM?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <dataRate value="25" unit="GBPerSecond"/>
+              </accessElements>
+              <accessElements name="Core3 --> Flash" destination="Flash?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
+                <dataRate value="2" unit="GBPerSecond"/>
+              </accessElements>
+            </modules>
+            <modules xsi:type="am:Cache" xmi:id="CortexCore3_L1Cache?type=Cache" name="CortexCore3_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
+              <ports xmi:id="CortexCore3_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
+              <ports xmi:id="CortexCore3_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+            </modules>
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_4?type=ProcessingUnit" name="ARM Cortex-A53_4" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM+Cortex-A53_4/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core4 --> DRAM" destination="DRAM?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
+                <dataRate value="25" unit="GBPerSecond"/>
+              </accessElements>
+              <accessElements name="Core4 --> Flash" destination="Flash?type=Memory">
+                <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
+                <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
+                <dataRate value="2" unit="GBPerSecond"/>
+              </accessElements>
+            </modules>
+            <modules xsi:type="am:Cache" xmi:id="CortexCore4_L1Cache?type=Cache" name="CortexCore4_L1Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CortexCacheDefinition?type=CacheDefinition">
+              <ports xmi:id="CortexCore4_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
+              <ports xmi:id="CortexCore4_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+            </modules>
+            <modules xsi:type="am:Cache" xmi:id="SharedL2Cache?type=Cache" name="SharedL2Cache" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="SharedCacheDefinition?type=CacheDefinition">
+              <ports xmi:id="SharedL2Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
+              <ports xmi:id="SharedL2Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+            </modules>
+            <modules xsi:type="am:ConnectionHandler" xmi:id="SharedL2ConnectionHandler?type=ConnectionHandler" name="SharedL2ConnectionHandler">
+              <ports xmi:id="SharedL2ConnectionHandler/IN1?type=HwPort" name="IN1" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+              <ports xmi:id="SharedL2ConnectionHandler/IN2?type=HwPort" name="IN2" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+              <ports xmi:id="SharedL2ConnectionHandler/IN3?type=HwPort" name="IN3" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+              <ports xmi:id="SharedL2ConnectionHandler/IN4?type=HwPort" name="IN4" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
+              <ports xmi:id="SharedL2ConnectionHandler/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
+            </modules>
+          </structures>
+          <structures xmi:id="Memory?type=HwStructure" name="Memory" structureType="SoC">
+            <modules xsi:type="am:Memory" xmi:id="DRAM?type=Memory" name="DRAM" frequencyDomain="DramFrequencyDomain?type=FrequencyDomain" definition="DramDefinition?type=MemoryDefinition">
+              <ports xmi:id="DRAM/DramPort?type=HwPort" name="DramPort" bitWidth="256" priority="0" portType="responder" portInterface="custom"/>
+            </modules>
+            <modules xsi:type="am:Memory" xmi:id="Flash?type=Memory" name="Flash" frequencyDomain="FlashFrequencyDomain?type=FrequencyDomain" definition="FlashDefinition?type=MemoryDefinition">
+              <ports xmi:id="Flash/FlashPort?type=HwPort" name="FlashPort" bitWidth="256" priority="0" portType="responder" portInterface="custom"/>
+            </modules>
+          </structures>
         </structures>
+      </structures>
+      <structures xmi:id="Camera?type=HwStructure" name="Camera" structureType="System">
+        <structures xmi:id="Image+Sensor?type=HwStructure" name="Image Sensor" structureType="Microcontroller">
+          <ports xmi:id="Image+Sensor/Image+Sensor+Responder?type=HwPort" name="Image Sensor Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+          <ports xmi:id="Image+Sensor/Image+Sensor+Receiver?type=HwPort" name="Image Sensor Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+        </structures>
+        <structures xmi:id="Lens+System?type=HwStructure" name="Lens System" structureType="System">
+          <ports xmi:id="Lens+System/Lens+System+Port?type=HwPort" name="Lens System Port" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+        </structures>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Camera+Processing+Unit?type=ProcessingUnit" name="Camera Processing Unit" definition="Camera+CPU+Definition?type=ProcessingUnitDefinition">
+          <ports xmi:id="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort" name="Camera Processor Unit Receiver Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        </modules>
+        <connections xmi:id="Camera/Lens+System+--%3E+Image+Sensor?type=HwConnection" name="Lens System --> Image Sensor" port1="Lens+System/Lens+System+Port?type=HwPort" port2="Image+Sensor/Image+Sensor+Receiver?type=HwPort"/>
+        <connections xmi:id="Camera/Image+Sensor+--%3E+Camera?type=HwConnection" name="Image Sensor --> Camera" port1="Image+Sensor/Image+Sensor+Responder?type=HwPort" port2="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort"/>
+      </structures>
+      <structures xmi:id="RADAR?type=HwStructure" name="RADAR" structureType="System">
+        <structures xmi:id="Antenna?type=HwStructure" name="Antenna" structureType="System">
+          <ports xmi:id="Antenna/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+          <ports xmi:id="Antenna/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+        </structures>
+        <structures xmi:id="Transmitter?type=HwStructure" name="Transmitter" structureType="Microcontroller">
+          <ports xmi:id="Transmitter/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+        </structures>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Signal+Processor?type=ProcessingUnit" name="Signal Processor" definition="RADAR+CPU+Definition?type=ProcessingUnitDefinition">
+          <ports xmi:id="Signal+Processor/Receiver+SCPU+Port?type=HwPort" name="Receiver SCPU Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
+          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        </modules>
+        <connections xmi:id="RADAR/Antenna+--%3E+RADAR+CPU?type=HwConnection" name="Antenna --> RADAR CPU" port1="Antenna/Responder?type=HwPort" port2="Signal+Processor/Receiver+SCPU+Port?type=HwPort"/>
+        <connections xmi:id="RADAR/Transmitter+--%3E+Antenna?type=HwConnection" name="Transmitter --> Antenna" port1="Transmitter/Responder?type=HwPort" port2="Antenna/Receiver?type=HwPort"/>
+      </structures>
+      <structures xmi:id="LIDAR?type=HwStructure" name="LIDAR" structureType="System">
+        <structures xmi:id="Photodetector?type=HwStructure" name="Photodetector" structureType="System">
+          <ports xmi:id="Photodetector/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <ports xmi:id="Photodetector/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+        </structures>
+        <structures xmi:id="Scanner+and+Optics?type=HwStructure" name="Scanner and Optics" structureType="System">
+          <ports xmi:id="Scanner+and+Optics/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <ports xmi:id="Scanner+and+Optics/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+        </structures>
+        <structures xmi:id="Laser?type=HwStructure" name="Laser" structureType="System">
+          <ports xmi:id="Laser/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+        </structures>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="LIDAR+Processing+Unit?type=ProcessingUnit" name="LIDAR Processing Unit" definition="LIDAR+CPU+Definition?type=ProcessingUnitDefinition">
+          <ports xmi:id="LIDAR+Processing+Unit/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
+          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        </modules>
+        <connections xmi:id="LIDAR/Laser+--%3E+Scanner+and+Optics?type=HwConnection" name="Laser --> Scanner and Optics" port1="Laser/Responder?type=HwPort" port2="Scanner+and+Optics/Receiver?type=HwPort"/>
+        <connections xmi:id="LIDAR/Scanner+and+Optics+--%3E+Photodetector?type=HwConnection" name="Scanner and Optics --> Photodetector" port1="Scanner+and+Optics/Responder?type=HwPort" port2="Photodetector/Receiver?type=HwPort"/>
+        <connections xmi:id="LIDAR/Photodetector+--%3E+LIDAR+CPU?type=HwConnection" name="Photodetector --> LIDAR CPU" port1="Photodetector/Responder?type=HwPort" port2="LIDAR+Processing+Unit/Receiver?type=HwPort"/>
       </structures>
     </structures>
     <domains xsi:type="am:FrequencyDomain" xmi:id="CortexCoreFrequencyDomain?type=FrequencyDomain" name="CortexCoreFrequencyDomain" clockGating="false">
