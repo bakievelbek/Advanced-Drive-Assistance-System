@@ -1,5 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <am:Amalthea xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:am="http://app4mc.eclipse.org/amalthea/3.2.0">
+  <swModel>
+    <tasks xmi:id="ObjectDetection?type=Task" name="ObjectDetection" stimuli="Timer_20ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
+      <activityGraph>
+        <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
+          <items xsi:type="am:RunnableCall" runnable="getFromSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="convertToSignal?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="resizeInput?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="normaliseInput?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="reduceNoise?type=Runnable"/>
+        </items>
+      </activityGraph>
+    </tasks>
+    <tasks xmi:id="DecisionMaking?type=Task" name="DecisionMaking" stimuli="Timer_5ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
+      <activityGraph>
+        <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
+          <items xsi:type="am:RunnableCall" runnable="analyse?type=Runnable"/>
+        </items>
+      </activityGraph>
+    </tasks>
+    <tasks xmi:id="SensorDataProcessing?type=Task" name="SensorDataProcessing" stimuli="Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
+      <activityGraph>
+        <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
+          <items xsi:type="am:RunnableCall" runnable="extractFeature?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="fuseData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="aggregateData?type=Runnable"/>
+        </items>
+      </activityGraph>
+    </tasks>
+    <tasks xmi:id="Classification?type=Task" name="Classification" stimuli="Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
+      <activityGraph>
+        <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
+          <items xsi:type="am:RunnableCall" runnable="startPostProcess?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="identifyData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="labelObjects?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="classifyData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="determineAction?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="driveActuator?type=Runnable"/>
+        </items>
+      </activityGraph>
+    </tasks>
+    <tasks xmi:id="ActuatorControl?type=Task" name="ActuatorControl" stimuli="Timer_5ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
+      <activityGraph>
+        <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
+          <items xsi:type="am:RunnableCall" runnable="vehicleStateMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="vehicleSpeedMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="wheelSpeedMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="decelerationSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="brakePedalSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="brakeForceCalculation?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="brakeForceActuation?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="brakeActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="stopLightActuator?type=Runnable"/>
+        </items>
+      </activityGraph>
+    </tasks>
+    <tasks xmi:id="HandleConnection?type=Task" name="HandleConnection" stimuli="Timer_5ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
+      <activityGraph>
+        <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
+          <items xsi:type="am:RunnableCall" runnable="implementCmd?type=Runnable"/>
+        </items>
+      </activityGraph>
+    </tasks>
+    <runnables xmi:id="getFromSensor?type=Runnable" name="getFromSensor" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="convertToSignal?type=Runnable" name="convertToSignal" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="sensorsDataSignal?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="startPostProcess?type=Runnable" name="startPostProcess" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="labelObjects?type=Runnable" name="labelObjects" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="identifiedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="labeledData?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="resizeInput?type=Runnable" name="resizeInput" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="sensorsDataSignal?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="preprocessDataResized?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="normaliseInput?type=Runnable" name="normaliseInput" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="preprocessDataResized?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="preprocessDataNormalized?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="reduceNoise?type=Runnable" name="reduceNoise" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="preprocessDataNormalized?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="extractFeature?type=Runnable" name="extractFeature" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="extractedData?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="fuseData?type=Runnable" name="fuseData" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="extractedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="aggregateData?type=Runnable" name="aggregateData" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="aggregatedData?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="analyse?type=Runnable" name="analyse" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="determineAction?type=Runnable" name="determineAction" callback="false" service="false"/>
+    <runnables xmi:id="identifyData?type=Runnable" name="identifyData" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="identifiedData?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="classifyData?type=Runnable" name="classifyData" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="labeledData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="classifiedData?type=Label" access="write"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="driveActuator?type=Runnable" name="driveActuator" callback="false" service="false"/>
+    <runnables xmi:id="implementCmd?type=Runnable" name="implementCmd" callback="false" service="false"/>
+    <runnables xmi:id="establishConnection?type=Runnable" name="establishConnection" callback="false" service="false"/>
+    <runnables xmi:id="brakePedalSensor?type=Runnable" name="brakePedalSensor" callback="false" service="false"/>
+    <runnables xmi:id="decelerationSensor?type=Runnable" name="decelerationSensor" callback="false" service="false"/>
+    <runnables xmi:id="stopLightActuator?type=Runnable" name="stopLightActuator" callback="false" service="false"/>
+    <runnables xmi:id="brakeForceCalculation?type=Runnable" name="brakeForceCalculation" callback="false" service="false"/>
+    <runnables xmi:id="absCalculation?type=Runnable" name="absCalculation" callback="false" service="false"/>
+    <runnables xmi:id="brakeForceActuation?type=Runnable" name="brakeForceActuation" callback="false" service="false"/>
+    <runnables xmi:id="brakeActuator?type=Runnable" name="brakeActuator" callback="false" service="false"/>
+    <runnables xmi:id="vehicleStateMonitor?type=Runnable" name="vehicleStateMonitor" callback="false" service="false"/>
+    <runnables xmi:id="vehicleSpeedMonitor?type=Runnable" name="vehicleSpeedMonitor" callback="false" service="false"/>
+    <runnables xmi:id="wheelSpeedMonitor?type=Runnable" name="wheelSpeedMonitor" callback="false" service="false"/>
+    <runnables xmi:id="brakeActuatorMonitor?type=Runnable" name="brakeActuatorMonitor" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
+      </activityGraph>
+    </runnables>
+    <labels xmi:id="sensorsDataSignal?type=Label" name="sensorsDataSignal" constant="false" bVolatile="false"/>
+    <labels xmi:id="postProcessData?type=Label" name="postProcessData" constant="false" bVolatile="false"/>
+    <labels xmi:id="actuatorCmd?type=Label" name="actuatorCmd" constant="false" bVolatile="false"/>
+    <labels xmi:id="preprocessDataResized?type=Label" name="preprocessDataResized" constant="false" bVolatile="false"/>
+    <labels xmi:id="preprocessDataNormalized?type=Label" name="preprocessDataNormalized" constant="false" bVolatile="false"/>
+    <labels xmi:id="preprocessDataNoiseless?type=Label" name="preprocessDataNoiseless" constant="false" bVolatile="false"/>
+    <labels xmi:id="sensorsDataVoltage?type=Label" name="sensorsDataVoltage" constant="false" bVolatile="false"/>
+    <labels xmi:id="extractedData?type=Label" name="extractedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="featuredData?type=Label" name="featuredData" constant="false" bVolatile="false"/>
+    <labels xmi:id="aggregatedData?type=Label" name="aggregatedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="identifiedData?type=Label" name="identifiedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="classifiedData?type=Label" name="classifiedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="labeledData?type=Label" name="labeledData" constant="false" bVolatile="false"/>
+  </swModel>
   <hwModel>
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition" name="CPU Definition of ADAS" puType="CPU"/>
     <definitions xsi:type="am:CacheDefinition" xmi:id="CortexCacheDefinition?type=CacheDefinition" name="CortexCacheDefinition" cacheType="data" writeStrategy="writeback" nWays="4" coherency="true" exclusive="false" hitRate="0.95">
@@ -201,4 +371,93 @@
     </domains>
     <domains xsi:type="am:FrequencyDomain" xmi:id="FlashFrequencyDomain?type=FrequencyDomain" name="FlashFrequencyDomain" clockGating="false"/>
   </hwModel>
+  <osModel>
+    <operatingSystems name="">
+      <taskSchedulers xmi:id="Task_Scheduler_Core1?type=TaskScheduler" name="Task_Scheduler_Core1" definition="OSEK?type=SchedulerDefinition"/>
+      <taskSchedulers xmi:id="Task_Scheduler_Core2?type=TaskScheduler" name="Task_Scheduler_Core2" definition="OSEK?type=SchedulerDefinition"/>
+      <taskSchedulers xmi:id="Task_Scheduler_Core3?type=TaskScheduler" name="Task_Scheduler_Core3" definition="OSEK?type=SchedulerDefinition"/>
+      <taskSchedulers xmi:id="Task_Scheduler_Core4?type=TaskScheduler" name="Task_Scheduler_Core4" definition="OSEK?type=SchedulerDefinition"/>
+    </operatingSystems>
+    <schedulerDefinitions xmi:id="OSEK?type=SchedulerDefinition" name="OSEK" description="OSEK" processParameters="Priority?type=SchedulingParameterDefinition" requiresParentScheduler="false" passesParametersUpwards="false" hasExactlyOneChild="false"/>
+    <schedulingParameterDefinitions xmi:id="Priority?type=SchedulingParameterDefinition" name="Priority" type="Time" many="false" mandatory="true"/>
+  </osModel>
+  <stimuliModel>
+    <stimuli xsi:type="am:PeriodicStimulus" xmi:id="Timer_5ms?type=PeriodicStimulus" name="Timer_5ms">
+      <recurrence value="5" unit="ms"/>
+    </stimuli>
+    <stimuli xsi:type="am:PeriodicStimulus" xmi:id="Timer_10ms?type=PeriodicStimulus" name="Timer_10ms">
+      <recurrence value="10" unit="ms"/>
+    </stimuli>
+    <stimuli xsi:type="am:PeriodicStimulus" xmi:id="Timer_20ms?type=PeriodicStimulus" name="Timer_20ms">
+      <recurrence value="20" unit="ms"/>
+    </stimuli>
+  </stimuliModel>
+  <eventModel>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_start?type=RunnableEvent" name="BrakeActuatuorMonitor_start" eventType="start" entity="brakeActuatorMonitor?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_start?type=RunnableEvent" name="BrakeForceCalculation_start" eventType="start" entity="brakeForceCalculation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_start?type=RunnableEvent" name="BrakeForceActuation_start" eventType="start" entity="brakeForceActuation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_terminate?type=RunnableEvent" name="BrakeActuatuorMonitor_terminate" eventType="terminate" entity="brakeActuatorMonitor?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_terminate?type=RunnableEvent" name="BrakeForceCalculation_terminate" eventType="terminate" entity="brakeForceCalculation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_terminate?type=RunnableEvent" name="BrakeForceActuation_terminate" eventType="terminate" entity="brakeForceActuation?type=Runnable"/>
+  </eventModel>
+  <constraintsModel>
+    <requirements xsi:type="am:ProcessRequirement" name="Deadline_Detection" process="ObjectDetection?type=Task">
+      <limit xsi:type="am:TimeRequirementLimit" metric="ResponseTime">
+        <limitValue value="10" unit="ms"/>
+      </limit>
+    </requirements>
+    <requirements xsi:type="am:ProcessRequirement" name="Deadline_Actuate" process="ActuatorControl?type=Task">
+      <limit xsi:type="am:TimeRequirementLimit" metric="ResponseTime">
+        <limitValue value="5" unit="ms"/>
+      </limit>
+    </requirements>
+  </constraintsModel>
+  <mappingModel>
+    <schedulerAllocation scheduler="Task_Scheduler_Core1?type=TaskScheduler" responsibility="ARM+Cortex-A53_1?type=ProcessingUnit"/>
+    <schedulerAllocation scheduler="Task_Scheduler_Core2?type=TaskScheduler" responsibility="ARM+Cortex-A53_2?type=ProcessingUnit" executingPU="ARM+Cortex-A53_2?type=ProcessingUnit"/>
+    <schedulerAllocation scheduler="Task_Scheduler_Core3?type=TaskScheduler" responsibility="ARM+Cortex-A53_3?type=ProcessingUnit" executingPU="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+    <schedulerAllocation scheduler="Task_Scheduler_Core4?type=TaskScheduler" responsibility="ARM+Cortex-A53_4?type=ProcessingUnit" executingPU="ARM+Cortex-A53_4?type=ProcessingUnit"/>
+    <taskAllocation task="ObjectDetection?type=Task" scheduler="Task_Scheduler_Core1?type=TaskScheduler">
+      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:Time" value="20" unit="ms"/>
+      </schedulingParameters>
+    </taskAllocation>
+    <taskAllocation task="DecisionMaking?type=Task" scheduler="Task_Scheduler_Core1?type=TaskScheduler">
+      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:Time" value="10" unit="ms"/>
+      </schedulingParameters>
+    </taskAllocation>
+    <taskAllocation task="SensorDataProcessing?type=Task" scheduler="Task_Scheduler_Core2?type=TaskScheduler">
+      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:Time" value="10" unit="ms"/>
+      </schedulingParameters>
+    </taskAllocation>
+    <taskAllocation task="Classification?type=Task" scheduler="Task_Scheduler_Core3?type=TaskScheduler">
+      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:Time" value="10" unit="ms"/>
+      </schedulingParameters>
+    </taskAllocation>
+    <taskAllocation task="ActuatorControl?type=Task" scheduler="Task_Scheduler_Core4?type=TaskScheduler">
+      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:Time" value="5" unit="ms"/>
+      </schedulingParameters>
+    </taskAllocation>
+    <taskAllocation task="HandleConnection?type=Task" scheduler="Task_Scheduler_Core4?type=TaskScheduler">
+      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:Time" value="10" unit="ms"/>
+      </schedulingParameters>
+    </taskAllocation>
+  </mappingModel>
+  <componentsModel>
+    <components xmi:id="EngineController?type=Component" name="EngineController"/>
+    <components xmi:id="EngineSensors?type=Component" name="EngineSensors"/>
+    <components xmi:id="Sensors?type=Component" name="Sensors"/>
+    <components xmi:id="SensorsPostprocessing?type=Component" name="SensorsPostprocessing"/>
+    <components xmi:id="BrakeForceCalculation?type=Component" name="BrakeForceCalculation"/>
+    <components xmi:id="BrakeForceArbiter?type=Component" name="BrakeForceArbiter"/>
+    <components xmi:id="Actuators?type=Component" name="Actuators"/>
+    <components xmi:id="Actuation?type=Component" name="Actuation"/>
+    <components xmi:id="ABSCalculation?type=Component" name="ABSCalculation"/>
+    <components xmi:id="CycleNUMObserver?type=Component" name="CycleNUMObserver"/>
+  </componentsModel>
 </am:Amalthea>
