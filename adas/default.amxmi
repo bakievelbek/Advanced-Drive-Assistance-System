@@ -198,21 +198,11 @@
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="Camera+CPU+Definition?type=ProcessingUnitDefinition" name="Camera CPU Definition" puType="CPU"/>
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="RADAR+CPU+Definition?type=ProcessingUnitDefinition" name="RADAR CPU Definition" puType="CPU"/>
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="LIDAR+CPU+Definition?type=ProcessingUnitDefinition" name="LIDAR CPU Definition" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition" name="CAN Bus Controller Definition" puType="CPU"/>
     <structures xmi:id="ADAS+Hardware?type=HwStructure" name="ADAS Hardware" structureType="System">
-      <structures xmi:id="Hardware+Components?type=HwStructure" name="Hardware Components" structureType="Cluster">
-        <ports xmi:id="Hardware+Components/ProcessingCluster?type=HwPort" name="ProcessingCluster" bitWidth="256" priority="0" portType="initiator" portInterface="custom"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_1_Dataport+--%3E+Core1_L1Cache_IN?type=HwConnection" name="Cortex-A53_1_Dataport --> Core1_L1Cache_IN" port1="ARM+Cortex-A53_1/Dataport?type=HwPort" port2="CortexCore1_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_2_Dataport+--%3E+Core2_L1Cache_IN?type=HwConnection" name="Cortex-A53_2_Dataport --> Core2_L1Cache_IN" port1="ARM+Cortex-A53_2/Dataport?type=HwPort" port2="CortexCore2_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_3_Dataport+--%3E+Core3_L1Cache_IN?type=HwConnection" name="Cortex-A53_3_Dataport --> Core3_L1Cache_IN" port1="ARM+Cortex-A53_3/Dataport?type=HwPort" port2="CortexCore3_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_4_Dataport+--%3E+Core4_L1Cache_IN?type=HwConnection" name="Cortex-A53_4_Dataport --> Core4_L1Cache_IN" port1="ARM+Cortex-A53_4/Dataport?type=HwPort" port2="CortexCore4_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_1+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_1 --> L2_SharedConnectionHandler" port1="CortexCore1_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN1?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_2+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_2 --> L2_SharedConnectionHandler" port1="CortexCore2_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN2?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_3+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_3 --> L2_SharedConnectionHandler" port1="CortexCore3_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN3?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_4+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_4 --> L2_SharedConnectionHandler" port1="CortexCore4_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN4?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L2_SharedConnectionHandler+--%3E+L2_SharedCache?type=HwConnection" name="L2_SharedConnectionHandler --> L2_SharedCache" port1="SharedL2ConnectionHandler/OUT?type=HwPort" port2="SharedL2Cache/IN?type=HwPort"/>
-      </structures>
       <structures xmi:id="ECU?type=HwStructure" name="ECU" structureType="ECU">
         <structures xmi:id="Processing+Cluster?type=HwStructure" name="Processing Cluster" structureType="Cluster">
+          <ports xmi:id="Processing+Cluster/ProcessingCluster?type=HwPort" name="ProcessingCluster" bitWidth="256" priority="0" portType="initiator" portInterface="custom"/>
           <structures xmi:id="CPU?type=HwStructure" name="CPU" structureType="Microcontroller">
             <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_1?type=ProcessingUnit" name="ARM Cortex-A53_1" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
               <ports xmi:id="ARM+Cortex-A53_1/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
@@ -302,8 +292,19 @@
               <ports xmi:id="Flash/FlashPort?type=HwPort" name="FlashPort" bitWidth="256" priority="0" portType="responder" portInterface="custom"/>
             </modules>
           </structures>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_1_Dataport+--%3E+Core1_L1Cache_IN?type=HwConnection" name="Cortex-A53_1_Dataport --> Core1_L1Cache_IN" port1="ARM+Cortex-A53_1/Dataport?type=HwPort" port2="CortexCore1_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_2_Dataport+--%3E+Core2_L1Cache_IN?type=HwConnection" name="Cortex-A53_2_Dataport --> Core2_L1Cache_IN" port1="ARM+Cortex-A53_2/Dataport?type=HwPort" port2="CortexCore2_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_3_Dataport+--%3E+Core3_L1Cache_IN?type=HwConnection" name="Cortex-A53_3_Dataport --> Core3_L1Cache_IN" port1="ARM+Cortex-A53_3/Dataport?type=HwPort" port2="CortexCore3_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_4_Dataport+--%3E+Core4_L1Cache_IN?type=HwConnection" name="Cortex-A53_4_Dataport --> Core4_L1Cache_IN" port1="ARM+Cortex-A53_4/Dataport?type=HwPort" port2="CortexCore4_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_1+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_1 --> L2_SharedConnectionHandler" port1="CortexCore1_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN1?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_2+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_2 --> L2_SharedConnectionHandler" port1="CortexCore2_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN2?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_3+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_3 --> L2_SharedConnectionHandler" port1="CortexCore3_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN3?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_4+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_4 --> L2_SharedConnectionHandler" port1="CortexCore4_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN4?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L2_SharedConnectionHandler+--%3E+L2_SharedCache?type=HwConnection" name="L2_SharedConnectionHandler --> L2_SharedCache" port1="SharedL2ConnectionHandler/OUT?type=HwPort" port2="SharedL2Cache/IN?type=HwPort"/>
         </structures>
       </structures>
+    </structures>
+    <structures xmi:id="Sensors?type=HwStructure" name="Sensors" structureType="System">
       <structures xmi:id="Camera?type=HwStructure" name="Camera" structureType="System">
         <structures xmi:id="Image+Sensor?type=HwStructure" name="Image Sensor" structureType="Microcontroller">
           <ports xmi:id="Image+Sensor/Image+Sensor+Responder?type=HwPort" name="Image Sensor Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
@@ -314,8 +315,9 @@
         </structures>
         <modules xsi:type="am:ProcessingUnit" xmi:id="Camera+Processing+Unit?type=ProcessingUnit" name="Camera Processing Unit" definition="Camera+CPU+Definition?type=ProcessingUnitDefinition">
           <ports xmi:id="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort" name="Camera Processor Unit Receiver Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="Camera --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="Camera --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_1?type=ProcessingUnit"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_4?type=ProcessingUnit"/>
         </modules>
         <connections xmi:id="Camera/Lens+System+--%3E+Image+Sensor?type=HwConnection" name="Lens System --> Image Sensor" port1="Lens+System/Lens+System+Port?type=HwPort" port2="Image+Sensor/Image+Sensor+Receiver?type=HwPort"/>
         <connections xmi:id="Camera/Image+Sensor+--%3E+Camera?type=HwConnection" name="Image Sensor --> Camera" port1="Image+Sensor/Image+Sensor+Responder?type=HwPort" port2="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort"/>
@@ -330,8 +332,8 @@
         </structures>
         <modules xsi:type="am:ProcessingUnit" xmi:id="Signal+Processor?type=ProcessingUnit" name="Signal Processor" definition="RADAR+CPU+Definition?type=ProcessingUnitDefinition">
           <ports xmi:id="Signal+Processor/Receiver+SCPU+Port?type=HwPort" name="Receiver SCPU Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core2" destination="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit"/>
+          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core3" destination="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
         </modules>
         <connections xmi:id="RADAR/Antenna+--%3E+RADAR+CPU?type=HwConnection" name="Antenna --> RADAR CPU" port1="Antenna/Responder?type=HwPort" port2="Signal+Processor/Receiver+SCPU+Port?type=HwPort"/>
         <connections xmi:id="RADAR/Transmitter+--%3E+Antenna?type=HwConnection" name="Transmitter --> Antenna" port1="Transmitter/Responder?type=HwPort" port2="Antenna/Receiver?type=HwPort"/>
@@ -350,12 +352,33 @@
         </structures>
         <modules xsi:type="am:ProcessingUnit" xmi:id="LIDAR+Processing+Unit?type=ProcessingUnit" name="LIDAR Processing Unit" definition="LIDAR+CPU+Definition?type=ProcessingUnitDefinition">
           <ports xmi:id="LIDAR+Processing+Unit/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core2" destination="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit"/>
+          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core3" destination="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
         </modules>
         <connections xmi:id="LIDAR/Laser+--%3E+Scanner+and+Optics?type=HwConnection" name="Laser --> Scanner and Optics" port1="Laser/Responder?type=HwPort" port2="Scanner+and+Optics/Receiver?type=HwPort"/>
         <connections xmi:id="LIDAR/Scanner+and+Optics+--%3E+Photodetector?type=HwConnection" name="Scanner and Optics --> Photodetector" port1="Scanner+and+Optics/Responder?type=HwPort" port2="Photodetector/Receiver?type=HwPort"/>
         <connections xmi:id="LIDAR/Photodetector+--%3E+LIDAR+CPU?type=HwConnection" name="Photodetector --> LIDAR CPU" port1="Photodetector/Responder?type=HwPort" port2="LIDAR+Processing+Unit/Receiver?type=HwPort"/>
+      </structures>
+    </structures>
+    <structures xmi:id="Communication+System?type=HwStructure" name="Communication System" structureType="Region">
+      <structures xmi:id="CAN+Bus?type=HwStructure" name="CAN Bus" structureType="Microcontroller">
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit" name="Destination: ARM Cortex-A53_2" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
+        </modules>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit" name="Destination: ARM Cortex-A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        </modules>
+      </structures>
+      <structures xmi:id="Ethernet?type=HwStructure" name="Ethernet" structureType="Region">
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_1?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_1" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_1" destination="ARM+Cortex-A53_1?type=ProcessingUnit"/>
+        </modules>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_3?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        </modules>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_4?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_4" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_4" destination="ARM+Cortex-A53_4?type=ProcessingUnit"/>
+        </modules>
       </structures>
     </structures>
     <domains xsi:type="am:FrequencyDomain" xmi:id="CortexCoreFrequencyDomain?type=FrequencyDomain" name="CortexCoreFrequencyDomain" clockGating="false">
@@ -370,6 +393,7 @@
       <defaultValue value="1600.0" unit="MHz"/>
     </domains>
     <domains xsi:type="am:FrequencyDomain" xmi:id="FlashFrequencyDomain?type=FrequencyDomain" name="FlashFrequencyDomain" clockGating="false"/>
+    <domains xsi:type="am:FrequencyDomain" xmi:id="CANBusFrequencyDomain?type=FrequencyDomain" name="CANBusFrequencyDomain" clockGating="false"/>
   </hwModel>
   <osModel>
     <operatingSystems name="">
