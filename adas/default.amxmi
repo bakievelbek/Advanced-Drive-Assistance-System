@@ -4,171 +4,171 @@
     <tasks xmi:id="ObjectDetection?type=Task" name="ObjectDetection" stimuli="Timer_20ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="getFromSensor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="convertToSignal?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="resizeInput?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="normaliseInput?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="reduceNoise?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="GetFromSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ConvertToSignal?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ResizeInput?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="NormaliseInput?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ReduceNoise?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="DecisionMaking?type=Task" name="DecisionMaking" stimuli="Timer_5ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="analyse?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Analyse?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="SensorDataProcessing?type=Task" name="SensorDataProcessing" stimuli="Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="extractFeature?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="fuseData?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="aggregateData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ExtractFeature?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="FuseData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="AggregateData?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="Classification?type=Task" name="Classification" stimuli="Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="startPostProcess?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="identifyData?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="labelObjects?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="classifyData?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="determineAction?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="driveActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="StartPostProcess?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="IdentifyData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="LabelObjects?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ClassifyData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="DetermineAction?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="DriveActuator?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="ActuatorControl?type=Task" name="ActuatorControl" stimuli="Timer_5ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="vehicleStateMonitor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="vehicleSpeedMonitor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="wheelSpeedMonitor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="decelerationSensor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakePedalSensor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakeForceCalculation?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakeForceActuation?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakeActuator?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="stopLightActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="VehicleStateMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="VehicleSpeedMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="WheelSpeedMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="DecelerationSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakePedalSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakeForceCalculation?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakeForceActuation?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakeActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="StopLightActuator?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="HandleConnection?type=Task" name="HandleConnection" stimuli="Timer_5ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="implementCmd?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ImplementCmd?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
-    <runnables xmi:id="getFromSensor?type=Runnable" name="getFromSensor" callback="false" service="false">
+    <runnables xmi:id="GetFromSensor?type=Runnable" name="GetFromSensor" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataVoltage?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="convertToSignal?type=Runnable" name="convertToSignal" callback="false" service="false">
+    <runnables xmi:id="ConvertToSignal?type=Runnable" name="ConvertToSignal" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="sensorsDataSignal?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataVoltage?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataSignal?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="startPostProcess?type=Runnable" name="startPostProcess" callback="false" service="false">
+    <runnables xmi:id="StartPostProcess?type=Runnable" name="StartPostProcess" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNoiseless?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="labelObjects?type=Runnable" name="labelObjects" callback="false" service="false">
+    <runnables xmi:id="LabelObjects?type=Runnable" name="LabelObjects" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="identifiedData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="labeledData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="IdentifiedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="LabeledData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="resizeInput?type=Runnable" name="resizeInput" callback="false" service="false">
+    <runnables xmi:id="ResizeInput?type=Runnable" name="ResizeInput" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataSignal?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="preprocessDataResized?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataSignal?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataResized?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="normaliseInput?type=Runnable" name="normaliseInput" callback="false" service="false">
+    <runnables xmi:id="NormaliseInput?type=Runnable" name="NormaliseInput" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataResized?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNormalized?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataResized?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNormalized?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="reduceNoise?type=Runnable" name="reduceNoise" callback="false" service="false">
+    <runnables xmi:id="ReduceNoise?type=Runnable" name="ReduceNoise" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNormalized?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNormalized?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNoiseless?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="extractFeature?type=Runnable" name="extractFeature" callback="false" service="false">
+    <runnables xmi:id="ExtractFeature?type=Runnable" name="ExtractFeature" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="extractedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNoiseless?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="ExtractedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="fuseData?type=Runnable" name="fuseData" callback="false" service="false">
+    <runnables xmi:id="FuseData?type=Runnable" name="FuseData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="extractedData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="ExtractedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="aggregateData?type=Runnable" name="aggregateData" callback="false" service="false">
+    <runnables xmi:id="AggregateData?type=Runnable" name="AggregateData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="aggregatedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="AggregatedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="analyse?type=Runnable" name="analyse" callback="false" service="false">
+    <runnables xmi:id="Analyse?type=Runnable" name="Analyse" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="determineAction?type=Runnable" name="determineAction" callback="false" service="false"/>
-    <runnables xmi:id="identifyData?type=Runnable" name="identifyData" callback="false" service="false">
+    <runnables xmi:id="DetermineAction?type=Runnable" name="DetermineAction" callback="false" service="false"/>
+    <runnables xmi:id="IdentifyData?type=Runnable" name="IdentifyData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="identifiedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="IdentifiedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="classifyData?type=Runnable" name="classifyData" callback="false" service="false">
+    <runnables xmi:id="ClassifyData?type=Runnable" name="ClassifyData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="labeledData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="classifiedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="LabeledData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="ClassifiedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="driveActuator?type=Runnable" name="driveActuator" callback="false" service="false"/>
-    <runnables xmi:id="implementCmd?type=Runnable" name="implementCmd" callback="false" service="false"/>
-    <runnables xmi:id="establishConnection?type=Runnable" name="establishConnection" callback="false" service="false"/>
-    <runnables xmi:id="brakePedalSensor?type=Runnable" name="brakePedalSensor" callback="false" service="false"/>
-    <runnables xmi:id="decelerationSensor?type=Runnable" name="decelerationSensor" callback="false" service="false"/>
-    <runnables xmi:id="stopLightActuator?type=Runnable" name="stopLightActuator" callback="false" service="false"/>
-    <runnables xmi:id="brakeForceCalculation?type=Runnable" name="brakeForceCalculation" callback="false" service="false"/>
-    <runnables xmi:id="absCalculation?type=Runnable" name="absCalculation" callback="false" service="false"/>
-    <runnables xmi:id="brakeForceActuation?type=Runnable" name="brakeForceActuation" callback="false" service="false"/>
-    <runnables xmi:id="brakeActuator?type=Runnable" name="brakeActuator" callback="false" service="false"/>
-    <runnables xmi:id="vehicleStateMonitor?type=Runnable" name="vehicleStateMonitor" callback="false" service="false"/>
-    <runnables xmi:id="vehicleSpeedMonitor?type=Runnable" name="vehicleSpeedMonitor" callback="false" service="false"/>
-    <runnables xmi:id="wheelSpeedMonitor?type=Runnable" name="wheelSpeedMonitor" callback="false" service="false"/>
-    <runnables xmi:id="brakeActuatorMonitor?type=Runnable" name="brakeActuatorMonitor" callback="false" service="false">
+    <runnables xmi:id="DriveActuator?type=Runnable" name="DriveActuator" callback="false" service="false"/>
+    <runnables xmi:id="ImplementCmd?type=Runnable" name="ImplementCmd" callback="false" service="false"/>
+    <runnables xmi:id="EstablishConnection?type=Runnable" name="EstablishConnection" callback="false" service="false"/>
+    <runnables xmi:id="BrakePedalSensor?type=Runnable" name="BrakePedalSensor" callback="false" service="false"/>
+    <runnables xmi:id="DecelerationSensor?type=Runnable" name="DecelerationSensor" callback="false" service="false"/>
+    <runnables xmi:id="StopLightActuator?type=Runnable" name="StopLightActuator" callback="false" service="false"/>
+    <runnables xmi:id="BrakeForceCalculation?type=Runnable" name="BrakeForceCalculation" callback="false" service="false"/>
+    <runnables xmi:id="AbsCalculation?type=Runnable" name="AbsCalculation" callback="false" service="false"/>
+    <runnables xmi:id="BrakeForceActuation?type=Runnable" name="BrakeForceActuation" callback="false" service="false"/>
+    <runnables xmi:id="BrakeActuator?type=Runnable" name="BrakeActuator" callback="false" service="false"/>
+    <runnables xmi:id="VehicleStateMonitor?type=Runnable" name="VehicleStateMonitor" callback="false" service="false"/>
+    <runnables xmi:id="VehicleSpeedMonitor?type=Runnable" name="VehicleSpeedMonitor" callback="false" service="false"/>
+    <runnables xmi:id="WheelSpeedMonitor?type=Runnable" name="WheelSpeedMonitor" callback="false" service="false"/>
+    <runnables xmi:id="BrakeActuatorMonitor?type=Runnable" name="BrakeActuatorMonitor" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataVoltage?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <labels xmi:id="sensorsDataSignal?type=Label" name="sensorsDataSignal" constant="false" bVolatile="false"/>
-    <labels xmi:id="postProcessData?type=Label" name="postProcessData" constant="false" bVolatile="false"/>
-    <labels xmi:id="actuatorCmd?type=Label" name="actuatorCmd" constant="false" bVolatile="false"/>
-    <labels xmi:id="preprocessDataResized?type=Label" name="preprocessDataResized" constant="false" bVolatile="false"/>
-    <labels xmi:id="preprocessDataNormalized?type=Label" name="preprocessDataNormalized" constant="false" bVolatile="false"/>
-    <labels xmi:id="preprocessDataNoiseless?type=Label" name="preprocessDataNoiseless" constant="false" bVolatile="false"/>
-    <labels xmi:id="sensorsDataVoltage?type=Label" name="sensorsDataVoltage" constant="false" bVolatile="false"/>
-    <labels xmi:id="extractedData?type=Label" name="extractedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="featuredData?type=Label" name="featuredData" constant="false" bVolatile="false"/>
-    <labels xmi:id="aggregatedData?type=Label" name="aggregatedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="identifiedData?type=Label" name="identifiedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="classifiedData?type=Label" name="classifiedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="labeledData?type=Label" name="labeledData" constant="false" bVolatile="false"/>
+    <labels xmi:id="SensorsDataSignal?type=Label" name="SensorsDataSignal" constant="false" bVolatile="false"/>
+    <labels xmi:id="PostProcessData?type=Label" name="PostProcessData" constant="false" bVolatile="false"/>
+    <labels xmi:id="ActuatorCmd?type=Label" name="ActuatorCmd" constant="false" bVolatile="false"/>
+    <labels xmi:id="PreprocessDataResized?type=Label" name="PreprocessDataResized" constant="false" bVolatile="false"/>
+    <labels xmi:id="PreprocessDataNormalized?type=Label" name="PreprocessDataNormalized" constant="false" bVolatile="false"/>
+    <labels xmi:id="PreprocessDataNoiseless?type=Label" name="PreprocessDataNoiseless" constant="false" bVolatile="false"/>
+    <labels xmi:id="SensorsDataVoltage?type=Label" name="SensorsDataVoltage" constant="false" bVolatile="false"/>
+    <labels xmi:id="ExtractedData?type=Label" name="ExtractedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="FeaturedData?type=Label" name="FeaturedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="AggregatedData?type=Label" name="AggregatedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="IdentifiedData?type=Label" name="IdentifiedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="ClassifiedData?type=Label" name="ClassifiedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="LabeledData?type=Label" name="LabeledData" constant="false" bVolatile="false"/>
   </swModel>
   <hwModel>
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition" name="CPU Definition of ADAS" puType="CPU"/>
@@ -198,21 +198,11 @@
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="Camera+CPU+Definition?type=ProcessingUnitDefinition" name="Camera CPU Definition" puType="CPU"/>
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="RADAR+CPU+Definition?type=ProcessingUnitDefinition" name="RADAR CPU Definition" puType="CPU"/>
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="LIDAR+CPU+Definition?type=ProcessingUnitDefinition" name="LIDAR CPU Definition" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition" name="CAN Bus Controller Definition" puType="CPU"/>
     <structures xmi:id="ADAS+Hardware?type=HwStructure" name="ADAS Hardware" structureType="System">
-      <structures xmi:id="Hardware+Components?type=HwStructure" name="Hardware Components" structureType="Cluster">
-        <ports xmi:id="Hardware+Components/ProcessingCluster?type=HwPort" name="ProcessingCluster" bitWidth="256" priority="0" portType="initiator" portInterface="custom"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_1_Dataport+--%3E+Core1_L1Cache_IN?type=HwConnection" name="Cortex-A53_1_Dataport --> Core1_L1Cache_IN" port1="ARM+Cortex-A53_1/Dataport?type=HwPort" port2="CortexCore1_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_2_Dataport+--%3E+Core2_L1Cache_IN?type=HwConnection" name="Cortex-A53_2_Dataport --> Core2_L1Cache_IN" port1="ARM+Cortex-A53_2/Dataport?type=HwPort" port2="CortexCore2_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_3_Dataport+--%3E+Core3_L1Cache_IN?type=HwConnection" name="Cortex-A53_3_Dataport --> Core3_L1Cache_IN" port1="ARM+Cortex-A53_3/Dataport?type=HwPort" port2="CortexCore3_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/Cortex-A53_4_Dataport+--%3E+Core4_L1Cache_IN?type=HwConnection" name="Cortex-A53_4_Dataport --> Core4_L1Cache_IN" port1="ARM+Cortex-A53_4/Dataport?type=HwPort" port2="CortexCore4_L1Cache/IN?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_1+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_1 --> L2_SharedConnectionHandler" port1="CortexCore1_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN1?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_2+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_2 --> L2_SharedConnectionHandler" port1="CortexCore2_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN2?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_3+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_3 --> L2_SharedConnectionHandler" port1="CortexCore3_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN3?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L1_Cache_4+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_4 --> L2_SharedConnectionHandler" port1="CortexCore4_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN4?type=HwPort"/>
-        <connections xmi:id="Hardware+Components/L2_SharedConnectionHandler+--%3E+L2_SharedCache?type=HwConnection" name="L2_SharedConnectionHandler --> L2_SharedCache" port1="SharedL2ConnectionHandler/OUT?type=HwPort" port2="SharedL2Cache/IN?type=HwPort"/>
-      </structures>
       <structures xmi:id="ECU?type=HwStructure" name="ECU" structureType="ECU">
         <structures xmi:id="Processing+Cluster?type=HwStructure" name="Processing Cluster" structureType="Cluster">
+          <ports xmi:id="Processing+Cluster/ProcessingCluster?type=HwPort" name="ProcessingCluster" bitWidth="256" priority="0" portType="initiator" portInterface="custom"/>
           <structures xmi:id="CPU?type=HwStructure" name="CPU" structureType="Microcontroller">
             <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_1?type=ProcessingUnit" name="ARM Cortex-A53_1" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
               <ports xmi:id="ARM+Cortex-A53_1/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
@@ -302,8 +292,19 @@
               <ports xmi:id="Flash/FlashPort?type=HwPort" name="FlashPort" bitWidth="256" priority="0" portType="responder" portInterface="custom"/>
             </modules>
           </structures>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_1_Dataport+--%3E+Core1_L1Cache_IN?type=HwConnection" name="Cortex-A53_1_Dataport --> Core1_L1Cache_IN" port1="ARM+Cortex-A53_1/Dataport?type=HwPort" port2="CortexCore1_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_2_Dataport+--%3E+Core2_L1Cache_IN?type=HwConnection" name="Cortex-A53_2_Dataport --> Core2_L1Cache_IN" port1="ARM+Cortex-A53_2/Dataport?type=HwPort" port2="CortexCore2_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_3_Dataport+--%3E+Core3_L1Cache_IN?type=HwConnection" name="Cortex-A53_3_Dataport --> Core3_L1Cache_IN" port1="ARM+Cortex-A53_3/Dataport?type=HwPort" port2="CortexCore3_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/Cortex-A53_4_Dataport+--%3E+Core4_L1Cache_IN?type=HwConnection" name="Cortex-A53_4_Dataport --> Core4_L1Cache_IN" port1="ARM+Cortex-A53_4/Dataport?type=HwPort" port2="CortexCore4_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_1+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_1 --> L2_SharedConnectionHandler" port1="CortexCore1_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN1?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_2+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_2 --> L2_SharedConnectionHandler" port1="CortexCore2_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN2?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_3+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_3 --> L2_SharedConnectionHandler" port1="CortexCore3_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN3?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L1_Cache_4+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_4 --> L2_SharedConnectionHandler" port1="CortexCore4_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN4?type=HwPort"/>
+          <connections xmi:id="Processing+Cluster/L2_SharedConnectionHandler+--%3E+L2_SharedCache?type=HwConnection" name="L2_SharedConnectionHandler --> L2_SharedCache" port1="SharedL2ConnectionHandler/OUT?type=HwPort" port2="SharedL2Cache/IN?type=HwPort"/>
         </structures>
       </structures>
+    </structures>
+    <structures xmi:id="Sensors?type=HwStructure" name="Sensors" structureType="System">
       <structures xmi:id="Camera?type=HwStructure" name="Camera" structureType="System">
         <structures xmi:id="Image+Sensor?type=HwStructure" name="Image Sensor" structureType="Microcontroller">
           <ports xmi:id="Image+Sensor/Image+Sensor+Responder?type=HwPort" name="Image Sensor Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
@@ -314,8 +315,9 @@
         </structures>
         <modules xsi:type="am:ProcessingUnit" xmi:id="Camera+Processing+Unit?type=ProcessingUnit" name="Camera Processing Unit" definition="Camera+CPU+Definition?type=ProcessingUnitDefinition">
           <ports xmi:id="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort" name="Camera Processor Unit Receiver Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="Camera --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="Camera --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_1?type=ProcessingUnit"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_4?type=ProcessingUnit"/>
         </modules>
         <connections xmi:id="Camera/Lens+System+--%3E+Image+Sensor?type=HwConnection" name="Lens System --> Image Sensor" port1="Lens+System/Lens+System+Port?type=HwPort" port2="Image+Sensor/Image+Sensor+Receiver?type=HwPort"/>
         <connections xmi:id="Camera/Image+Sensor+--%3E+Camera?type=HwConnection" name="Image Sensor --> Camera" port1="Image+Sensor/Image+Sensor+Responder?type=HwPort" port2="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort"/>
@@ -330,8 +332,8 @@
         </structures>
         <modules xsi:type="am:ProcessingUnit" xmi:id="Signal+Processor?type=ProcessingUnit" name="Signal Processor" definition="RADAR+CPU+Definition?type=ProcessingUnitDefinition">
           <ports xmi:id="Signal+Processor/Receiver+SCPU+Port?type=HwPort" name="Receiver SCPU Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core2" destination="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit"/>
+          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core3" destination="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
         </modules>
         <connections xmi:id="RADAR/Antenna+--%3E+RADAR+CPU?type=HwConnection" name="Antenna --> RADAR CPU" port1="Antenna/Responder?type=HwPort" port2="Signal+Processor/Receiver+SCPU+Port?type=HwPort"/>
         <connections xmi:id="RADAR/Transmitter+--%3E+Antenna?type=HwConnection" name="Transmitter --> Antenna" port1="Transmitter/Responder?type=HwPort" port2="Antenna/Receiver?type=HwPort"/>
@@ -350,12 +352,33 @@
         </structures>
         <modules xsi:type="am:ProcessingUnit" xmi:id="LIDAR+Processing+Unit?type=ProcessingUnit" name="LIDAR Processing Unit" definition="LIDAR+CPU+Definition?type=ProcessingUnitDefinition">
           <ports xmi:id="LIDAR+Processing+Unit/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core2" destination="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit"/>
+          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core3" destination="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
         </modules>
         <connections xmi:id="LIDAR/Laser+--%3E+Scanner+and+Optics?type=HwConnection" name="Laser --> Scanner and Optics" port1="Laser/Responder?type=HwPort" port2="Scanner+and+Optics/Receiver?type=HwPort"/>
         <connections xmi:id="LIDAR/Scanner+and+Optics+--%3E+Photodetector?type=HwConnection" name="Scanner and Optics --> Photodetector" port1="Scanner+and+Optics/Responder?type=HwPort" port2="Photodetector/Receiver?type=HwPort"/>
         <connections xmi:id="LIDAR/Photodetector+--%3E+LIDAR+CPU?type=HwConnection" name="Photodetector --> LIDAR CPU" port1="Photodetector/Responder?type=HwPort" port2="LIDAR+Processing+Unit/Receiver?type=HwPort"/>
+      </structures>
+    </structures>
+    <structures xmi:id="Communication+System?type=HwStructure" name="Communication System" structureType="Region">
+      <structures xmi:id="CAN+Bus?type=HwStructure" name="CAN Bus" structureType="Microcontroller">
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit" name="Destination: ARM Cortex-A53_2" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
+        </modules>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit" name="Destination: ARM Cortex-A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        </modules>
+      </structures>
+      <structures xmi:id="Ethernet?type=HwStructure" name="Ethernet" structureType="Region">
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_1?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_1" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_1" destination="ARM+Cortex-A53_1?type=ProcessingUnit"/>
+        </modules>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_3?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        </modules>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_4?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_4" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus --> ARM Cortex-A53_4" destination="ARM+Cortex-A53_4?type=ProcessingUnit"/>
+        </modules>
       </structures>
     </structures>
     <domains xsi:type="am:FrequencyDomain" xmi:id="CortexCoreFrequencyDomain?type=FrequencyDomain" name="CortexCoreFrequencyDomain" clockGating="false">
@@ -370,6 +393,7 @@
       <defaultValue value="1600.0" unit="MHz"/>
     </domains>
     <domains xsi:type="am:FrequencyDomain" xmi:id="FlashFrequencyDomain?type=FrequencyDomain" name="FlashFrequencyDomain" clockGating="false"/>
+    <domains xsi:type="am:FrequencyDomain" xmi:id="CANBusFrequencyDomain?type=FrequencyDomain" name="CANBusFrequencyDomain" clockGating="false"/>
   </hwModel>
   <osModel>
     <operatingSystems name="">
@@ -393,12 +417,12 @@
     </stimuli>
   </stimuliModel>
   <eventModel>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_start?type=RunnableEvent" name="BrakeActuatuorMonitor_start" eventType="start" entity="brakeActuatorMonitor?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_start?type=RunnableEvent" name="BrakeForceCalculation_start" eventType="start" entity="brakeForceCalculation?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_start?type=RunnableEvent" name="BrakeForceActuation_start" eventType="start" entity="brakeForceActuation?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_terminate?type=RunnableEvent" name="BrakeActuatuorMonitor_terminate" eventType="terminate" entity="brakeActuatorMonitor?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_terminate?type=RunnableEvent" name="BrakeForceCalculation_terminate" eventType="terminate" entity="brakeForceCalculation?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_terminate?type=RunnableEvent" name="BrakeForceActuation_terminate" eventType="terminate" entity="brakeForceActuation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_start?type=RunnableEvent" name="BrakeActuatuorMonitor_start" eventType="start" entity="BrakeActuatorMonitor?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_start?type=RunnableEvent" name="BrakeForceCalculation_start" eventType="start" entity="BrakeForceCalculation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_start?type=RunnableEvent" name="BrakeForceActuation_start" eventType="start" entity="BrakeForceActuation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_terminate?type=RunnableEvent" name="BrakeActuatuorMonitor_terminate" eventType="terminate" entity="BrakeActuatorMonitor?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_terminate?type=RunnableEvent" name="BrakeForceCalculation_terminate" eventType="terminate" entity="BrakeForceCalculation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_terminate?type=RunnableEvent" name="BrakeForceActuation_terminate" eventType="terminate" entity="BrakeForceActuation?type=Runnable"/>
   </eventModel>
   <constraintsModel>
     <requirements xsi:type="am:ProcessRequirement" name="Deadline_Detection" process="ObjectDetection?type=Task">
