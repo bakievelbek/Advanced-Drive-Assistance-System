@@ -4,171 +4,171 @@
     <tasks xmi:id="ObjectDetection?type=Task" name="ObjectDetection" stimuli="Timer_20ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="getFromSensor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="convertToSignal?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="resizeInput?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="normaliseInput?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="reduceNoise?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="GetFromSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ConvertToSignal?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ResizeInput?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="NormaliseInput?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ReduceNoise?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="DecisionMaking?type=Task" name="DecisionMaking" stimuli="Timer_5ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="analyse?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Analyse?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="SensorDataProcessing?type=Task" name="SensorDataProcessing" stimuli="Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="extractFeature?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="fuseData?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="aggregateData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ExtractFeature?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="FuseData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="AggregateData?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="Classification?type=Task" name="Classification" stimuli="Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="startPostProcess?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="identifyData?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="labelObjects?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="classifyData?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="determineAction?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="driveActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="StartPostProcess?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="IdentifyData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="LabelObjects?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ClassifyData?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="DetermineAction?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="DriveActuator?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="ActuatorControl?type=Task" name="ActuatorControl" stimuli="Timer_5ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="vehicleStateMonitor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="vehicleSpeedMonitor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="wheelSpeedMonitor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="decelerationSensor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakePedalSensor?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakeForceCalculation?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakeForceActuation?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="brakeActuator?type=Runnable"/>
-          <items xsi:type="am:RunnableCall" runnable="stopLightActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="VehicleStateMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="VehicleSpeedMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="WheelSpeedMonitor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="DecelerationSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakePedalSensor?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakeForceCalculation?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakeForceActuation?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakeActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="StopLightActuator?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
     <tasks xmi:id="HandleConnection?type=Task" name="HandleConnection" stimuli="Timer_5ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="implementCmd?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="ImplementCmd?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
-    <runnables xmi:id="getFromSensor?type=Runnable" name="getFromSensor" callback="false" service="false">
+    <runnables xmi:id="GetFromSensor?type=Runnable" name="GetFromSensor" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataVoltage?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="convertToSignal?type=Runnable" name="convertToSignal" callback="false" service="false">
+    <runnables xmi:id="ConvertToSignal?type=Runnable" name="ConvertToSignal" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="sensorsDataSignal?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataVoltage?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataSignal?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="startPostProcess?type=Runnable" name="startPostProcess" callback="false" service="false">
+    <runnables xmi:id="StartPostProcess?type=Runnable" name="StartPostProcess" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNoiseless?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="labelObjects?type=Runnable" name="labelObjects" callback="false" service="false">
+    <runnables xmi:id="LabelObjects?type=Runnable" name="LabelObjects" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="identifiedData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="labeledData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="IdentifiedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="LabeledData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="resizeInput?type=Runnable" name="resizeInput" callback="false" service="false">
+    <runnables xmi:id="ResizeInput?type=Runnable" name="ResizeInput" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataSignal?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="preprocessDataResized?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataSignal?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataResized?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="normaliseInput?type=Runnable" name="normaliseInput" callback="false" service="false">
+    <runnables xmi:id="NormaliseInput?type=Runnable" name="NormaliseInput" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataResized?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNormalized?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataResized?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNormalized?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="reduceNoise?type=Runnable" name="reduceNoise" callback="false" service="false">
+    <runnables xmi:id="ReduceNoise?type=Runnable" name="ReduceNoise" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNormalized?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNormalized?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNoiseless?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="extractFeature?type=Runnable" name="extractFeature" callback="false" service="false">
+    <runnables xmi:id="ExtractFeature?type=Runnable" name="ExtractFeature" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="preprocessDataNoiseless?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="extractedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="PreprocessDataNoiseless?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="ExtractedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="fuseData?type=Runnable" name="fuseData" callback="false" service="false">
+    <runnables xmi:id="FuseData?type=Runnable" name="FuseData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="extractedData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="ExtractedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="aggregateData?type=Runnable" name="aggregateData" callback="false" service="false">
+    <runnables xmi:id="AggregateData?type=Runnable" name="AggregateData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="aggregatedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="AggregatedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="analyse?type=Runnable" name="analyse" callback="false" service="false">
+    <runnables xmi:id="Analyse?type=Runnable" name="Analyse" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="determineAction?type=Runnable" name="determineAction" callback="false" service="false"/>
-    <runnables xmi:id="identifyData?type=Runnable" name="identifyData" callback="false" service="false">
+    <runnables xmi:id="DetermineAction?type=Runnable" name="DetermineAction" callback="false" service="false"/>
+    <runnables xmi:id="IdentifyData?type=Runnable" name="IdentifyData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="featuredData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="identifiedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="IdentifiedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="classifyData?type=Runnable" name="classifyData" callback="false" service="false">
+    <runnables xmi:id="ClassifyData?type=Runnable" name="ClassifyData" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="labeledData?type=Label" access="read"/>
-        <items xsi:type="am:LabelAccess" data="classifiedData?type=Label" access="write"/>
+        <items xsi:type="am:LabelAccess" data="LabeledData?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="ClassifiedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="driveActuator?type=Runnable" name="driveActuator" callback="false" service="false"/>
-    <runnables xmi:id="implementCmd?type=Runnable" name="implementCmd" callback="false" service="false"/>
-    <runnables xmi:id="establishConnection?type=Runnable" name="establishConnection" callback="false" service="false"/>
-    <runnables xmi:id="brakePedalSensor?type=Runnable" name="brakePedalSensor" callback="false" service="false"/>
-    <runnables xmi:id="decelerationSensor?type=Runnable" name="decelerationSensor" callback="false" service="false"/>
-    <runnables xmi:id="stopLightActuator?type=Runnable" name="stopLightActuator" callback="false" service="false"/>
-    <runnables xmi:id="brakeForceCalculation?type=Runnable" name="brakeForceCalculation" callback="false" service="false"/>
-    <runnables xmi:id="absCalculation?type=Runnable" name="absCalculation" callback="false" service="false"/>
-    <runnables xmi:id="brakeForceActuation?type=Runnable" name="brakeForceActuation" callback="false" service="false"/>
-    <runnables xmi:id="brakeActuator?type=Runnable" name="brakeActuator" callback="false" service="false"/>
-    <runnables xmi:id="vehicleStateMonitor?type=Runnable" name="vehicleStateMonitor" callback="false" service="false"/>
-    <runnables xmi:id="vehicleSpeedMonitor?type=Runnable" name="vehicleSpeedMonitor" callback="false" service="false"/>
-    <runnables xmi:id="wheelSpeedMonitor?type=Runnable" name="wheelSpeedMonitor" callback="false" service="false"/>
-    <runnables xmi:id="brakeActuatorMonitor?type=Runnable" name="brakeActuatorMonitor" callback="false" service="false">
+    <runnables xmi:id="DriveActuator?type=Runnable" name="DriveActuator" callback="false" service="false"/>
+    <runnables xmi:id="ImplementCmd?type=Runnable" name="ImplementCmd" callback="false" service="false"/>
+    <runnables xmi:id="EstablishConnection?type=Runnable" name="EstablishConnection" callback="false" service="false"/>
+    <runnables xmi:id="BrakePedalSensor?type=Runnable" name="BrakePedalSensor" callback="false" service="false"/>
+    <runnables xmi:id="DecelerationSensor?type=Runnable" name="DecelerationSensor" callback="false" service="false"/>
+    <runnables xmi:id="StopLightActuator?type=Runnable" name="StopLightActuator" callback="false" service="false"/>
+    <runnables xmi:id="BrakeForceCalculation?type=Runnable" name="BrakeForceCalculation" callback="false" service="false"/>
+    <runnables xmi:id="AbsCalculation?type=Runnable" name="AbsCalculation" callback="false" service="false"/>
+    <runnables xmi:id="BrakeForceActuation?type=Runnable" name="BrakeForceActuation" callback="false" service="false"/>
+    <runnables xmi:id="BrakeActuator?type=Runnable" name="BrakeActuator" callback="false" service="false"/>
+    <runnables xmi:id="VehicleStateMonitor?type=Runnable" name="VehicleStateMonitor" callback="false" service="false"/>
+    <runnables xmi:id="VehicleSpeedMonitor?type=Runnable" name="VehicleSpeedMonitor" callback="false" service="false"/>
+    <runnables xmi:id="WheelSpeedMonitor?type=Runnable" name="WheelSpeedMonitor" callback="false" service="false"/>
+    <runnables xmi:id="BrakeActuatorMonitor?type=Runnable" name="BrakeActuatorMonitor" callback="false" service="false">
       <activityGraph>
-        <items xsi:type="am:LabelAccess" data="sensorsDataVoltage?type=Label" access="read"/>
+        <items xsi:type="am:LabelAccess" data="SensorsDataVoltage?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <labels xmi:id="sensorsDataSignal?type=Label" name="sensorsDataSignal" constant="false" bVolatile="false"/>
-    <labels xmi:id="postProcessData?type=Label" name="postProcessData" constant="false" bVolatile="false"/>
-    <labels xmi:id="actuatorCmd?type=Label" name="actuatorCmd" constant="false" bVolatile="false"/>
-    <labels xmi:id="preprocessDataResized?type=Label" name="preprocessDataResized" constant="false" bVolatile="false"/>
-    <labels xmi:id="preprocessDataNormalized?type=Label" name="preprocessDataNormalized" constant="false" bVolatile="false"/>
-    <labels xmi:id="preprocessDataNoiseless?type=Label" name="preprocessDataNoiseless" constant="false" bVolatile="false"/>
-    <labels xmi:id="sensorsDataVoltage?type=Label" name="sensorsDataVoltage" constant="false" bVolatile="false"/>
-    <labels xmi:id="extractedData?type=Label" name="extractedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="featuredData?type=Label" name="featuredData" constant="false" bVolatile="false"/>
-    <labels xmi:id="aggregatedData?type=Label" name="aggregatedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="identifiedData?type=Label" name="identifiedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="classifiedData?type=Label" name="classifiedData" constant="false" bVolatile="false"/>
-    <labels xmi:id="labeledData?type=Label" name="labeledData" constant="false" bVolatile="false"/>
+    <labels xmi:id="SensorsDataSignal?type=Label" name="SensorsDataSignal" constant="false" bVolatile="false"/>
+    <labels xmi:id="PostProcessData?type=Label" name="PostProcessData" constant="false" bVolatile="false"/>
+    <labels xmi:id="ActuatorCmd?type=Label" name="ActuatorCmd" constant="false" bVolatile="false"/>
+    <labels xmi:id="PreprocessDataResized?type=Label" name="PreprocessDataResized" constant="false" bVolatile="false"/>
+    <labels xmi:id="PreprocessDataNormalized?type=Label" name="PreprocessDataNormalized" constant="false" bVolatile="false"/>
+    <labels xmi:id="PreprocessDataNoiseless?type=Label" name="PreprocessDataNoiseless" constant="false" bVolatile="false"/>
+    <labels xmi:id="SensorsDataVoltage?type=Label" name="SensorsDataVoltage" constant="false" bVolatile="false"/>
+    <labels xmi:id="ExtractedData?type=Label" name="ExtractedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="FeaturedData?type=Label" name="FeaturedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="AggregatedData?type=Label" name="AggregatedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="IdentifiedData?type=Label" name="IdentifiedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="ClassifiedData?type=Label" name="ClassifiedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="LabeledData?type=Label" name="LabeledData" constant="false" bVolatile="false"/>
   </swModel>
   <hwModel>
     <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition" name="CPU Definition of ADAS" puType="CPU"/>
@@ -393,12 +393,12 @@
     </stimuli>
   </stimuliModel>
   <eventModel>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_start?type=RunnableEvent" name="BrakeActuatuorMonitor_start" eventType="start" entity="brakeActuatorMonitor?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_start?type=RunnableEvent" name="BrakeForceCalculation_start" eventType="start" entity="brakeForceCalculation?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_start?type=RunnableEvent" name="BrakeForceActuation_start" eventType="start" entity="brakeForceActuation?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_terminate?type=RunnableEvent" name="BrakeActuatuorMonitor_terminate" eventType="terminate" entity="brakeActuatorMonitor?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_terminate?type=RunnableEvent" name="BrakeForceCalculation_terminate" eventType="terminate" entity="brakeForceCalculation?type=Runnable"/>
-    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_terminate?type=RunnableEvent" name="BrakeForceActuation_terminate" eventType="terminate" entity="brakeForceActuation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_start?type=RunnableEvent" name="BrakeActuatuorMonitor_start" eventType="start" entity="BrakeActuatorMonitor?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_start?type=RunnableEvent" name="BrakeForceCalculation_start" eventType="start" entity="BrakeForceCalculation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_start?type=RunnableEvent" name="BrakeForceActuation_start" eventType="start" entity="BrakeForceActuation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeActuatuorMonitor_terminate?type=RunnableEvent" name="BrakeActuatuorMonitor_terminate" eventType="terminate" entity="BrakeActuatorMonitor?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceCalculation_terminate?type=RunnableEvent" name="BrakeForceCalculation_terminate" eventType="terminate" entity="BrakeForceCalculation?type=Runnable"/>
+    <events xsi:type="am:RunnableEvent" xmi:id="BrakeForceActuation_terminate?type=RunnableEvent" name="BrakeForceActuation_terminate" eventType="terminate" entity="BrakeForceActuation?type=Runnable"/>
   </eventModel>
   <constraintsModel>
     <requirements xsi:type="am:ProcessRequirement" name="Deadline_Detection" process="ObjectDetection?type=Task">
