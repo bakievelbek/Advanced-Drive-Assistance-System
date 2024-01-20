@@ -58,7 +58,18 @@
     <tasks xmi:id="HandleConnection?type=Task" name="HandleConnection" stimuli="Timer_5ms?type=PeriodicStimulus Timer_10ms?type=PeriodicStimulus" multipleTaskActivationLimit="0">
       <activityGraph>
         <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
-          <items xsi:type="am:RunnableCall" runnable="ImplementCmd?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Sender_CAN_1?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Error_Handler_CAN?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Diagnostic_Check_CAN?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Init_CAN_Controller?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Shutdown_CAN_Controller?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Receiver_CAN_Message2?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Shutdown_Ethernet_Controller?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Receiver_Ethernet_Frame2?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Sender_Ethernet_Frame1?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Init_Ethernet_Controller?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Error_Handler_Ethernet?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="Diagnostic_Check_Ethernet?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
@@ -125,7 +136,13 @@
         <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="DetermineAction?type=Runnable" name="DetermineAction" callback="false" service="false"/>
+    <runnables xmi:id="DetermineAction?type=Runnable" name="DetermineAction" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:Group" name="" ordered="true" interruptible="true">
+          <items xsi:type="am:SenderReceiverRead" buffered="false" label="AnalysedData?type=Label"/>
+        </items>
+      </activityGraph>
+    </runnables>
     <runnables xmi:id="IdentifyData?type=Runnable" name="IdentifyData" callback="false" service="false">
       <activityGraph>
         <items xsi:type="am:LabelAccess" data="FeaturedData?type=Label" access="read"/>
@@ -138,22 +155,138 @@
         <items xsi:type="am:LabelAccess" data="ClassifiedData?type=Label" access="write"/>
       </activityGraph>
     </runnables>
-    <runnables xmi:id="DriveActuator?type=Runnable" name="DriveActuator" callback="false" service="false"/>
-    <runnables xmi:id="ImplementCmd?type=Runnable" name="ImplementCmd" callback="false" service="false"/>
-    <runnables xmi:id="EstablishConnection?type=Runnable" name="EstablishConnection" callback="false" service="false"/>
-    <runnables xmi:id="BrakePedalSensor?type=Runnable" name="BrakePedalSensor" callback="false" service="false"/>
-    <runnables xmi:id="DecelerationSensor?type=Runnable" name="DecelerationSensor" callback="false" service="false"/>
-    <runnables xmi:id="StopLightActuator?type=Runnable" name="StopLightActuator" callback="false" service="false"/>
-    <runnables xmi:id="BrakeForceCalculation?type=Runnable" name="BrakeForceCalculation" callback="false" service="false"/>
-    <runnables xmi:id="AbsCalculation?type=Runnable" name="AbsCalculation" callback="false" service="false"/>
-    <runnables xmi:id="BrakeForceActuation?type=Runnable" name="BrakeForceActuation" callback="false" service="false"/>
-    <runnables xmi:id="BrakeActuator?type=Runnable" name="BrakeActuator" callback="false" service="false"/>
-    <runnables xmi:id="VehicleStateMonitor?type=Runnable" name="VehicleStateMonitor" callback="false" service="false"/>
-    <runnables xmi:id="VehicleSpeedMonitor?type=Runnable" name="VehicleSpeedMonitor" callback="false" service="false"/>
-    <runnables xmi:id="WheelSpeedMonitor?type=Runnable" name="WheelSpeedMonitor" callback="false" service="false"/>
+    <runnables xmi:id="DriveActuator?type=Runnable" name="DriveActuator" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="DecisionResult?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="EstablishConnection?type=Runnable" name="EstablishConnection" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="InitConnectionPackage?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="BrakePedalSensor?type=Runnable" name="BrakePedalSensor" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="VehicleState?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="DecelerationSensor?type=Runnable" name="DecelerationSensor" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="VehicleSpeed?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="StopLightActuator?type=Runnable" name="StopLightActuator" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="VehicleState?type=Label"/>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="isStopped?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="BrakeForceCalculation?type=Runnable" name="BrakeForceCalculation" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="VehicleState?type=Label"/>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="VehicleSpeed?type=Label"/>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="BrakeForceToApply?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="AbsCalculation?type=Runnable" name="AbsCalculation" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="VehicleSpeed?type=Label"/>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="VehicleState?type=Label"/>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="BrakeForceToApply?type=Label"/>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="ABSCalculation?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="BrakeForceActuation?type=Runnable" name="BrakeForceActuation" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="ABSCalculation?type=Label"/>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="ABCApplicationResult?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="BrakeActuator?type=Runnable" name="BrakeActuator" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="isStopped?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="VehicleStateMonitor?type=Runnable" name="VehicleStateMonitor" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="StateRetreivingResult?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="VehicleSpeedMonitor?type=Runnable" name="VehicleSpeedMonitor" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="StateRetreivingResult?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="WheelSpeedMonitor?type=Runnable" name="WheelSpeedMonitor" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="StateRetreivingResult?type=Label"/>
+      </activityGraph>
+    </runnables>
     <runnables xmi:id="BrakeActuatorMonitor?type=Runnable" name="BrakeActuatorMonitor" callback="false" service="false">
       <activityGraph>
         <items xsi:type="am:LabelAccess" data="SensorsDataVoltage?type=Label" access="read"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Receiver_CAN_Message2?type=Runnable" name="Receiver_CAN_Message2" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="ReceiveCANMsg2?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Sender_CAN_1?type=Runnable" name="Sender_CAN_1" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="SendCANMsg1?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Init_CAN_Controller?type=Runnable" name="Init_CAN_Controller" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="InitCANController?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Shutdown_CAN_Controller?type=Runnable" name="Shutdown_CAN_Controller" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:TerminateProcess"/>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="ShutdownCANController?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Diagnostic_Check_CAN?type=Runnable" name="Diagnostic_Check_CAN" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="DiagCheckCAN?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Error_Handler_CAN?type=Runnable" name="Error_Handler_CAN" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="ErrorHandlerCAN?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Sender_Ethernet_Frame1?type=Runnable" name="Sender_Ethernet_Frame1" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="SendEthernetMsg1?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Receiver_Ethernet_Frame2?type=Runnable" name="Receiver_Ethernet_Frame2" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="ReceiveEthernetMsg2?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Error_Handler_Ethernet?type=Runnable" name="Error_Handler_Ethernet" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="ReceiveEthernetMsg2?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Init_Ethernet_Controller?type=Runnable" name="Init_Ethernet_Controller" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="InitEthernetController?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Shutdown_Ethernet_Controller?type=Runnable" name="Shutdown_Ethernet_Controller" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:TerminateProcess"/>
+        <items xsi:type="am:SenderReceiverWrite" buffered="false" label="ShutdownEthernetController?type=Label"/>
+      </activityGraph>
+    </runnables>
+    <runnables xmi:id="Diagnostic_Check_Ethernet?type=Runnable" name="Diagnostic_Check_Ethernet" callback="false" service="false">
+      <activityGraph>
+        <items xsi:type="am:SenderReceiverRead" buffered="false" label="DiagCheckEthernet?type=Label"/>
       </activityGraph>
     </runnables>
     <labels xmi:id="SensorsDataSignal?type=Label" name="SensorsDataSignal" constant="false" bVolatile="false"/>
@@ -169,9 +302,31 @@
     <labels xmi:id="IdentifiedData?type=Label" name="IdentifiedData" constant="false" bVolatile="false"/>
     <labels xmi:id="ClassifiedData?type=Label" name="ClassifiedData" constant="false" bVolatile="false"/>
     <labels xmi:id="LabeledData?type=Label" name="LabeledData" constant="false" bVolatile="false"/>
+    <labels xmi:id="DiagCheckCAN?type=Label" name="DiagCheckCAN" constant="false" bVolatile="false"/>
+    <labels xmi:id="ShutdownCANController?type=Label" name="ShutdownCANController" constant="false" bVolatile="false"/>
+    <labels xmi:id="InitCANController?type=Label" name="InitCANController" constant="false" bVolatile="false"/>
+    <labels xmi:id="ErrorHandlerCAN?type=Label" name="ErrorHandlerCAN" constant="false" bVolatile="false"/>
+    <labels xmi:id="ReceiveCANMsg2?type=Label" name="ReceiveCANMsg2" constant="false" bVolatile="false"/>
+    <labels xmi:id="SendCANMsg1?type=Label" name="SendCANMsg1" constant="false" bVolatile="false"/>
+    <labels xmi:id="DiagCheckEthernet?type=Label" name="DiagCheckEthernet" constant="false" bVolatile="false"/>
+    <labels xmi:id="ShutdownEthernetController?type=Label" name="ShutdownEthernetController" constant="false" bVolatile="false"/>
+    <labels xmi:id="InitEthernetController?type=Label" name="InitEthernetController" constant="false" bVolatile="false"/>
+    <labels xmi:id="ErrorHandlerEthernet?type=Label" name="ErrorHandlerEthernet" constant="false" bVolatile="false"/>
+    <labels xmi:id="ReceiveEthernetMsg2?type=Label" name="ReceiveEthernetMsg2" constant="false" bVolatile="false"/>
+    <labels xmi:id="SendEthernetMsg1?type=Label" name="SendEthernetMsg1" constant="false" bVolatile="false"/>
+    <labels xmi:id="AnalysedData?type=Label" name="AnalysedData" constant="false" bVolatile="false"/>
+    <labels xmi:id="DecisionResult?type=Label" name="DecisionResult" constant="false" bVolatile="false"/>
+    <labels xmi:id="StateRetreivingResult?type=Label" name="StateRetreivingResult" constant="false" bVolatile="false"/>
+    <labels xmi:id="InitConnectionPackage?type=Label" name="InitConnectionPackage" constant="false" bVolatile="false"/>
+    <labels xmi:id="VehicleState?type=Label" name="VehicleState" constant="false" bVolatile="false"/>
+    <labels xmi:id="VehicleSpeed?type=Label" name="VehicleSpeed" constant="false" bVolatile="false"/>
+    <labels xmi:id="isStopped?type=Label" name="isStopped" constant="false" bVolatile="false"/>
+    <labels xmi:id="BrakeForceToApply?type=Label" name="BrakeForceToApply" constant="false" bVolatile="false"/>
+    <labels xmi:id="ABSCalculation?type=Label" name="ABSCalculation" constant="false" bVolatile="false"/>
+    <labels xmi:id="ABCApplicationResult?type=Label" name="ABCApplicationResult" constant="false" bVolatile="false"/>
   </swModel>
   <hwModel>
-    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition" name="CPU Definition of ADAS" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CPU_Definition_ADAS?type=ProcessingUnitDefinition" name="CPU_Definition_ADAS" puType="CPU"/>
     <definitions xsi:type="am:CacheDefinition" xmi:id="CortexCacheDefinition?type=CacheDefinition" name="CortexCacheDefinition" cacheType="data" writeStrategy="writeback" nWays="4" coherency="true" exclusive="false" hitRate="0.95">
       <size value="32" unit="kB"/>
       <lineSize value="64" unit="B"/>
@@ -195,23 +350,23 @@
       <accessLatency xsi:type="am:DiscreteValueConstant" value="10"/>
       <dataRate value="400" unit="MBPerSecond"/>
     </definitions>
-    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="Camera+CPU+Definition?type=ProcessingUnitDefinition" name="Camera CPU Definition" puType="CPU"/>
-    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="RADAR+CPU+Definition?type=ProcessingUnitDefinition" name="RADAR CPU Definition" puType="CPU"/>
-    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="LIDAR+CPU+Definition?type=ProcessingUnitDefinition" name="LIDAR CPU Definition" puType="CPU"/>
-    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition" name="CAN Bus Controller Definition" puType="CPU"/>
-    <structures xmi:id="ADAS+Hardware?type=HwStructure" name="ADAS Hardware" structureType="System">
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="Camera_CPU_Definition?type=ProcessingUnitDefinition" name="Camera_CPU_Definition" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="RADAR_CPU_Definition?type=ProcessingUnitDefinition" name="RADAR_CPU_Definition" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="LIDAR_CPU_Definition?type=ProcessingUnitDefinition" name="LIDAR_CPU_Definition" puType="CPU"/>
+    <definitions xsi:type="am:ProcessingUnitDefinition" xmi:id="CAN_Bus_Controller_Definition?type=ProcessingUnitDefinition" name="CAN_Bus_Controller_Definition" puType="CPU"/>
+    <structures xmi:id="ADAS_Hardware?type=HwStructure" name="ADAS_Hardware" structureType="System">
       <structures xmi:id="ECU?type=HwStructure" name="ECU" structureType="ECU">
-        <structures xmi:id="Processing+Cluster?type=HwStructure" name="Processing Cluster" structureType="Cluster">
-          <ports xmi:id="Processing+Cluster/ProcessingCluster?type=HwPort" name="ProcessingCluster" bitWidth="256" priority="0" portType="initiator" portInterface="custom"/>
+        <structures xmi:id="Processing_Cluster?type=HwStructure" name="Processing_Cluster" structureType="Cluster">
+          <ports xmi:id="Processing_Cluster/ProcessingCluster?type=HwPort" name="ProcessingCluster" bitWidth="256" priority="0" portType="initiator" portInterface="custom"/>
           <structures xmi:id="CPU?type=HwStructure" name="CPU" structureType="Microcontroller">
-            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_1?type=ProcessingUnit" name="ARM Cortex-A53_1" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
-              <ports xmi:id="ARM+Cortex-A53_1/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-              <accessElements name="Core1 --> DRAM" destination="DRAM?type=Memory">
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM_Cortex_A53_1?type=ProcessingUnit" name="ARM_Cortex_A53_1" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU_Definition_ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM_Cortex_A53_1/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core1__DRAM" destination="DRAM?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <dataRate value="25" unit="GBPerSecond"/>
               </accessElements>
-              <accessElements name="Core1 --> Flash" destination="Flash?type=Memory">
+              <accessElements name="Core1__Flash" destination="Flash?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
                 <dataRate value="2" unit="GBPerSecond"/>
@@ -221,14 +376,14 @@
               <ports xmi:id="CortexCore1_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
               <ports xmi:id="CortexCore1_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
             </modules>
-            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_2?type=ProcessingUnit" name="ARM Cortex-A53_2" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
-              <ports xmi:id="ARM+Cortex-A53_2/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-              <accessElements name="Core2 --> DRAM" destination="DRAM?type=Memory">
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM_Cortex_A53_2?type=ProcessingUnit" name="ARM_Cortex_A53_2" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU_Definition_ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM_Cortex_A53_2/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core2__DRAM" destination="DRAM?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <dataRate value="25" unit="GBPerSecond"/>
               </accessElements>
-              <accessElements name="Core2 --> Flash" destination="Flash?type=Memory">
+              <accessElements name="Core2__Flash" destination="Flash?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
                 <dataRate value="2" unit="GBPerSecond"/>
@@ -238,14 +393,14 @@
               <ports xmi:id="CortexCore2_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
               <ports xmi:id="CortexCore2_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
             </modules>
-            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_3?type=ProcessingUnit" name="ARM Cortex-A53_3" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
-              <ports xmi:id="ARM+Cortex-A53_3/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-              <accessElements name="Core3 --> DRAM" destination="DRAM?type=Memory">
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM_Cortex_A53_3?type=ProcessingUnit" name="ARM_Cortex_A53_3" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU_Definition_ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM_Cortex_A53_3/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core3__DRAM" destination="DRAM?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <dataRate value="25" unit="GBPerSecond"/>
               </accessElements>
-              <accessElements name="Core3 --> Flash" destination="Flash?type=Memory">
+              <accessElements name="Core3__Flash" destination="Flash?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
                 <dataRate value="2" unit="GBPerSecond"/>
@@ -255,14 +410,14 @@
               <ports xmi:id="CortexCore3_L1Cache/IN?type=HwPort" name="IN" bitWidth="64" priority="0" portType="initiator" portInterface="custom"/>
               <ports xmi:id="CortexCore3_L1Cache/OUT?type=HwPort" name="OUT" bitWidth="64" priority="0" portType="responder" portInterface="custom"/>
             </modules>
-            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM+Cortex-A53_4?type=ProcessingUnit" name="ARM Cortex-A53_4" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU+Definition+of+ADAS?type=ProcessingUnitDefinition">
-              <ports xmi:id="ARM+Cortex-A53_4/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
-              <accessElements name="Core4 --> DRAM" destination="DRAM?type=Memory">
+            <modules xsi:type="am:ProcessingUnit" xmi:id="ARM_Cortex_A53_4?type=ProcessingUnit" name="ARM_Cortex_A53_4" powerDomain="CortexCorePowerDomain?type=PowerDomain" frequencyDomain="CortexCoreFrequencyDomain?type=FrequencyDomain" definition="CPU_Definition_ADAS?type=ProcessingUnitDefinition">
+              <ports xmi:id="ARM_Cortex_A53_4/Dataport?type=HwPort" name="Dataport" bitWidth="32" priority="0" portType="initiator" portInterface="custom"/>
+              <accessElements name="Core4__DRAM" destination="DRAM?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="15"/>
                 <dataRate value="25" unit="GBPerSecond"/>
               </accessElements>
-              <accessElements name="Core4 --> Flash" destination="Flash?type=Memory">
+              <accessElements name="Core4__Flash" destination="Flash?type=Memory">
                 <readLatency xsi:type="am:DiscreteValueConstant" value="100"/>
                 <writeLatency xsi:type="am:DiscreteValueConstant" value="250"/>
                 <dataRate value="2" unit="GBPerSecond"/>
@@ -292,35 +447,35 @@
               <ports xmi:id="Flash/FlashPort?type=HwPort" name="FlashPort" bitWidth="256" priority="0" portType="responder" portInterface="custom"/>
             </modules>
           </structures>
-          <connections xmi:id="Processing+Cluster/Cortex-A53_1_Dataport+--%3E+Core1_L1Cache_IN?type=HwConnection" name="Cortex-A53_1_Dataport --> Core1_L1Cache_IN" port1="ARM+Cortex-A53_1/Dataport?type=HwPort" port2="CortexCore1_L1Cache/IN?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/Cortex-A53_2_Dataport+--%3E+Core2_L1Cache_IN?type=HwConnection" name="Cortex-A53_2_Dataport --> Core2_L1Cache_IN" port1="ARM+Cortex-A53_2/Dataport?type=HwPort" port2="CortexCore2_L1Cache/IN?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/Cortex-A53_3_Dataport+--%3E+Core3_L1Cache_IN?type=HwConnection" name="Cortex-A53_3_Dataport --> Core3_L1Cache_IN" port1="ARM+Cortex-A53_3/Dataport?type=HwPort" port2="CortexCore3_L1Cache/IN?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/Cortex-A53_4_Dataport+--%3E+Core4_L1Cache_IN?type=HwConnection" name="Cortex-A53_4_Dataport --> Core4_L1Cache_IN" port1="ARM+Cortex-A53_4/Dataport?type=HwPort" port2="CortexCore4_L1Cache/IN?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/L1_Cache_1+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_1 --> L2_SharedConnectionHandler" port1="CortexCore1_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN1?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/L1_Cache_2+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_2 --> L2_SharedConnectionHandler" port1="CortexCore2_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN2?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/L1_Cache_3+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_3 --> L2_SharedConnectionHandler" port1="CortexCore3_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN3?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/L1_Cache_4+--%3E+L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_4 --> L2_SharedConnectionHandler" port1="CortexCore4_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN4?type=HwPort"/>
-          <connections xmi:id="Processing+Cluster/L2_SharedConnectionHandler+--%3E+L2_SharedCache?type=HwConnection" name="L2_SharedConnectionHandler --> L2_SharedCache" port1="SharedL2ConnectionHandler/OUT?type=HwPort" port2="SharedL2Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/Cortex_A53_1_Dataport__Core1_L1Cache_IN?type=HwConnection" name="Cortex_A53_1_Dataport__Core1_L1Cache_IN" port1="ARM_Cortex_A53_1/Dataport?type=HwPort" port2="CortexCore1_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/Cortex_A53_2_Dataport__Core2_L1Cache_IN?type=HwConnection" name="Cortex_A53_2_Dataport__Core2_L1Cache_IN" port1="ARM_Cortex_A53_2/Dataport?type=HwPort" port2="CortexCore2_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/Cortex_A53_3_Dataport__Core3_L1Cache_IN?type=HwConnection" name="Cortex_A53_3_Dataport__Core3_L1Cache_IN" port1="ARM_Cortex_A53_3/Dataport?type=HwPort" port2="CortexCore3_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/Cortex_A53_4_Dataport__Core4_L1Cache_IN?type=HwConnection" name="Cortex_A53_4_Dataport__Core4_L1Cache_IN" port1="ARM_Cortex_A53_4/Dataport?type=HwPort" port2="CortexCore4_L1Cache/IN?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/L1_Cache_1__L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_1__L2_SharedConnectionHandler" port1="CortexCore1_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN1?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/L1_Cache_2__L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_2__L2_SharedConnectionHandler" port1="CortexCore2_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN2?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/L1_Cache_3__L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_3__L2_SharedConnectionHandler" port1="CortexCore3_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN3?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/L1_Cache_4__L2_SharedConnectionHandler?type=HwConnection" name="L1_Cache_4__L2_SharedConnectionHandler" port1="CortexCore4_L1Cache/OUT?type=HwPort" port2="SharedL2ConnectionHandler/IN4?type=HwPort"/>
+          <connections xmi:id="Processing_Cluster/L2_SharedConnectionHandler__L2_SharedCache?type=HwConnection" name="L2_SharedConnectionHandler__L2_SharedCache" port1="SharedL2ConnectionHandler/OUT?type=HwPort" port2="SharedL2Cache/IN?type=HwPort"/>
         </structures>
       </structures>
     </structures>
     <structures xmi:id="Sensors?type=HwStructure" name="Sensors" structureType="System">
       <structures xmi:id="Camera?type=HwStructure" name="Camera" structureType="System">
-        <structures xmi:id="Image+Sensor?type=HwStructure" name="Image Sensor" structureType="Microcontroller">
-          <ports xmi:id="Image+Sensor/Image+Sensor+Responder?type=HwPort" name="Image Sensor Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
-          <ports xmi:id="Image+Sensor/Image+Sensor+Receiver?type=HwPort" name="Image Sensor Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+        <structures xmi:id="Image_Sensor?type=HwStructure" name="Image_Sensor" structureType="Microcontroller">
+          <ports xmi:id="Image_Sensor/Image_Sensor_Responder?type=HwPort" name="Image_Sensor_Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+          <ports xmi:id="Image_Sensor/Image_Sensor_Receiver?type=HwPort" name="Image_Sensor_Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
         </structures>
-        <structures xmi:id="Lens+System?type=HwStructure" name="Lens System" structureType="System">
-          <ports xmi:id="Lens+System/Lens+System+Port?type=HwPort" name="Lens System Port" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+        <structures xmi:id="Lens_System?type=HwStructure" name="Lens_System" structureType="System">
+          <ports xmi:id="Lens_System/Lens_System_Port?type=HwPort" name="Lens_System_Port" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
         </structures>
-        <modules xsi:type="am:ProcessingUnit" xmi:id="Camera+Processing+Unit?type=ProcessingUnit" name="Camera Processing Unit" definition="Camera+CPU+Definition?type=ProcessingUnitDefinition">
-          <ports xmi:id="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort" name="Camera Processor Unit Receiver Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_1?type=ProcessingUnit"/>
-          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
-          <accessElements name="Camera --> ARM Cortex-A53 - Ethernet" destination="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_4?type=ProcessingUnit"/>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Camera_Processing_Unit?type=ProcessingUnit" name="Camera_Processing_Unit" definition="Camera_CPU_Definition?type=ProcessingUnitDefinition">
+          <ports xmi:id="Camera_Processing_Unit/Camera_Processor_Unit_Receiver_Port?type=HwPort" name="Camera_Processor_Unit_Receiver_Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <accessElements name="Camera_ARM Cortex_A53_Ethernet" destination="Destination_Ethernet__ARM_Cortex_A53_1?type=ProcessingUnit"/>
+          <accessElements name="Camera__ARM_Cortex_A53_Ethernet" destination="Destination_Ethernet__ARM_Cortex_A53_3?type=ProcessingUnit"/>
+          <accessElements name="Camera__ARM_Cortex_A53_Ethernet" destination="Destination_Ethernet__ARM_Cortex_A53_4?type=ProcessingUnit"/>
         </modules>
-        <connections xmi:id="Camera/Lens+System+--%3E+Image+Sensor?type=HwConnection" name="Lens System --> Image Sensor" port1="Lens+System/Lens+System+Port?type=HwPort" port2="Image+Sensor/Image+Sensor+Receiver?type=HwPort"/>
-        <connections xmi:id="Camera/Image+Sensor+--%3E+Camera?type=HwConnection" name="Image Sensor --> Camera" port1="Image+Sensor/Image+Sensor+Responder?type=HwPort" port2="Camera+Processing+Unit/Camera+Processor+Unit+Receiver+Port?type=HwPort"/>
+        <connections xmi:id="Camera/Lens_System_Image_Sensor?type=HwConnection" name="Lens_System_Image_Sensor" port1="Lens_System/Lens_System_Port?type=HwPort" port2="Image_Sensor/Image_Sensor_Receiver?type=HwPort"/>
+        <connections xmi:id="Camera/Image_Sensor_Camera?type=HwConnection" name="Image_Sensor_Camera" port1="Image_Sensor/Image_Sensor_Responder?type=HwPort" port2="Camera_Processing_Unit/Camera_Processor_Unit_Receiver_Port?type=HwPort"/>
       </structures>
       <structures xmi:id="RADAR?type=HwStructure" name="RADAR" structureType="System">
         <structures xmi:id="Antenna?type=HwStructure" name="Antenna" structureType="System">
@@ -330,54 +485,54 @@
         <structures xmi:id="Transmitter?type=HwStructure" name="Transmitter" structureType="Microcontroller">
           <ports xmi:id="Transmitter/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
         </structures>
-        <modules xsi:type="am:ProcessingUnit" xmi:id="Signal+Processor?type=ProcessingUnit" name="Signal Processor" definition="RADAR+CPU+Definition?type=ProcessingUnitDefinition">
-          <ports xmi:id="Signal+Processor/Receiver+SCPU+Port?type=HwPort" name="Receiver SCPU Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core2" destination="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="RADAR CPU --> ARM Cortex-A53 - Core3" destination="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Signal_Processor?type=ProcessingUnit" name="Signal_Processor" definition="RADAR_CPU_Definition?type=ProcessingUnitDefinition">
+          <ports xmi:id="Signal_Processor/Receiver_SCPU_Port?type=HwPort" name="Receiver_SCPU_Port" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <accessElements name="RADAR_CPU__ARM_Cortex_A53_Core2" destination="Destination__ARM_Cortex_A53_2?type=ProcessingUnit"/>
+          <accessElements name="RADAR_CPU__ARM_Cortex_A53_Core3" destination="Destination__ARM_Cortex_A53_3?type=ProcessingUnit"/>
         </modules>
-        <connections xmi:id="RADAR/Antenna+--%3E+RADAR+CPU?type=HwConnection" name="Antenna --> RADAR CPU" port1="Antenna/Responder?type=HwPort" port2="Signal+Processor/Receiver+SCPU+Port?type=HwPort"/>
-        <connections xmi:id="RADAR/Transmitter+--%3E+Antenna?type=HwConnection" name="Transmitter --> Antenna" port1="Transmitter/Responder?type=HwPort" port2="Antenna/Receiver?type=HwPort"/>
+        <connections xmi:id="RADAR/Antenna__RADAR_CPU?type=HwConnection" name="Antenna__RADAR_CPU" port1="Antenna/Responder?type=HwPort" port2="Signal_Processor/Receiver_SCPU_Port?type=HwPort"/>
+        <connections xmi:id="RADAR/Transmitter__Antenna?type=HwConnection" name="Transmitter__Antenna" port1="Transmitter/Responder?type=HwPort" port2="Antenna/Receiver?type=HwPort"/>
       </structures>
       <structures xmi:id="LIDAR?type=HwStructure" name="LIDAR" structureType="System">
         <structures xmi:id="Photodetector?type=HwStructure" name="Photodetector" structureType="System">
           <ports xmi:id="Photodetector/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
           <ports xmi:id="Photodetector/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
         </structures>
-        <structures xmi:id="Scanner+and+Optics?type=HwStructure" name="Scanner and Optics" structureType="System">
-          <ports xmi:id="Scanner+and+Optics/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <ports xmi:id="Scanner+and+Optics/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
+        <structures xmi:id="Scanner_and_Optics?type=HwStructure" name="Scanner_and_Optics" structureType="System">
+          <ports xmi:id="Scanner_and_Optics/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <ports xmi:id="Scanner_and_Optics/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
         </structures>
         <structures xmi:id="Laser?type=HwStructure" name="Laser" structureType="System">
           <ports xmi:id="Laser/Responder?type=HwPort" name="Responder" bitWidth="0" priority="0" portType="responder" portInterface="custom"/>
         </structures>
-        <modules xsi:type="am:ProcessingUnit" xmi:id="LIDAR+Processing+Unit?type=ProcessingUnit" name="LIDAR Processing Unit" definition="LIDAR+CPU+Definition?type=ProcessingUnitDefinition">
-          <ports xmi:id="LIDAR+Processing+Unit/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
-          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core2" destination="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit"/>
-          <accessElements name="LIDAR CPU --> ARM Cortex-A53 - Core3" destination="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="LIDAR_Processing_Unit?type=ProcessingUnit" name="LIDAR_Processing_Unit" frequencyDomain="FlashFrequencyDomain?type=FrequencyDomain" definition="LIDAR_CPU_Definition?type=ProcessingUnitDefinition">
+          <ports xmi:id="LIDAR_Processing_Unit/Receiver?type=HwPort" name="Receiver" bitWidth="0" priority="0" portType="initiator" portInterface="custom"/>
+          <accessElements name="LIDAR_CPU__ARM_Cortex_A53_Core2" destination="Destination__ARM_Cortex_A53_2?type=ProcessingUnit"/>
+          <accessElements name="LIDAR_CPU__ARM_Cortex_A53_Core3" destination="Destination__ARM_Cortex_A53_3?type=ProcessingUnit"/>
         </modules>
-        <connections xmi:id="LIDAR/Laser+--%3E+Scanner+and+Optics?type=HwConnection" name="Laser --> Scanner and Optics" port1="Laser/Responder?type=HwPort" port2="Scanner+and+Optics/Receiver?type=HwPort"/>
-        <connections xmi:id="LIDAR/Scanner+and+Optics+--%3E+Photodetector?type=HwConnection" name="Scanner and Optics --> Photodetector" port1="Scanner+and+Optics/Responder?type=HwPort" port2="Photodetector/Receiver?type=HwPort"/>
-        <connections xmi:id="LIDAR/Photodetector+--%3E+LIDAR+CPU?type=HwConnection" name="Photodetector --> LIDAR CPU" port1="Photodetector/Responder?type=HwPort" port2="LIDAR+Processing+Unit/Receiver?type=HwPort"/>
+        <connections xmi:id="LIDAR/Laser__Scanner_and_Optics?type=HwConnection" name="Laser__Scanner_and_Optics" port1="Laser/Responder?type=HwPort" port2="Scanner_and_Optics/Receiver?type=HwPort"/>
+        <connections xmi:id="LIDAR/Scanner_and_Optics__Photodetector?type=HwConnection" name="Scanner_and_Optics__Photodetector" port1="Scanner_and_Optics/Responder?type=HwPort" port2="Photodetector/Receiver?type=HwPort"/>
+        <connections xmi:id="LIDAR/Photodetector__LIDAR_CPU?type=HwConnection" name="Photodetector__LIDAR_CPU" port1="Photodetector/Responder?type=HwPort" port2="LIDAR_Processing_Unit/Receiver?type=HwPort"/>
       </structures>
     </structures>
-    <structures xmi:id="Communication+System?type=HwStructure" name="Communication System" structureType="Region">
-      <structures xmi:id="CAN+Bus?type=HwStructure" name="CAN Bus" structureType="Microcontroller">
-        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination%3A+ARM+Cortex-A53_2?type=ProcessingUnit" name="Destination: ARM Cortex-A53_2" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
-          <accessElements name="CAN Bus --> ARM Cortex-A53_2" destination="ARM+Cortex-A53_2?type=ProcessingUnit"/>
+    <structures xmi:id="Communication_System?type=HwStructure" name="Communication_System" structureType="Region">
+      <structures xmi:id="CAN_Bus?type=HwStructure" name="CAN_Bus" structureType="Microcontroller">
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination__ARM_Cortex_A53_2?type=ProcessingUnit" name="Destination__ARM_Cortex_A53_2" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN_Bus_Controller_Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus__ARM_Cortex_A53_2" destination="ARM_Cortex_A53_2?type=ProcessingUnit"/>
         </modules>
-        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination%3A+ARM+Cortex-A53_3?type=ProcessingUnit" name="Destination: ARM Cortex-A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
-          <accessElements name="CAN Bus --> ARM Cortex-A53_3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination__ARM_Cortex_A53_3?type=ProcessingUnit" name="Destination__ARM_Cortex_A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN_Bus_Controller_Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN Bus__ARM_Cortex_A53_3" destination="ARM_Cortex_A53_3?type=ProcessingUnit"/>
         </modules>
       </structures>
       <structures xmi:id="Ethernet?type=HwStructure" name="Ethernet" structureType="Region">
-        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_1?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_1" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
-          <accessElements name="CAN Bus --> ARM Cortex-A53_1" destination="ARM+Cortex-A53_1?type=ProcessingUnit"/>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination_Ethernet__ARM_Cortex_A53_1?type=ProcessingUnit" name="Destination_Ethernet__ARM_Cortex_A53_1" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN_Bus_Controller_Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN_Bus__ARM_Cortex_A53_1" destination="ARM_Cortex_A53_1?type=ProcessingUnit"/>
         </modules>
-        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_3?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
-          <accessElements name="CAN Bus --> ARM Cortex-A53_3" destination="ARM+Cortex-A53_3?type=ProcessingUnit"/>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination_Ethernet__ARM_Cortex_A53_3?type=ProcessingUnit" name="Destination_Ethernet__ARM_Cortex_A53_3" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN_Bus_Controller_Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN_Bus__ARM_Cortex_A53_3" destination="ARM_Cortex_A53_3?type=ProcessingUnit"/>
         </modules>
-        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination+%28Ethernet%29%3A+ARM+Cortex-A53_4?type=ProcessingUnit" name="Destination (Ethernet): ARM Cortex-A53_4" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN+Bus+Controller+Definition?type=ProcessingUnitDefinition">
-          <accessElements name="CAN Bus --> ARM Cortex-A53_4" destination="ARM+Cortex-A53_4?type=ProcessingUnit"/>
+        <modules xsi:type="am:ProcessingUnit" xmi:id="Destination_Ethernet__ARM_Cortex_A53_4?type=ProcessingUnit" name="Destination_Ethernet__ARM_Cortex_A53_4" frequencyDomain="CANBusFrequencyDomain?type=FrequencyDomain" definition="CAN_Bus_Controller_Definition?type=ProcessingUnitDefinition">
+          <accessElements name="CAN_Bus__ARM_Cortex_A53_4" destination="ARM_Cortex_A53_4?type=ProcessingUnit"/>
         </modules>
       </structures>
     </structures>
@@ -392,8 +547,12 @@
     <domains xsi:type="am:FrequencyDomain" xmi:id="DramFrequencyDomain?type=FrequencyDomain" name="DramFrequencyDomain" clockGating="false">
       <defaultValue value="1600.0" unit="MHz"/>
     </domains>
-    <domains xsi:type="am:FrequencyDomain" xmi:id="FlashFrequencyDomain?type=FrequencyDomain" name="FlashFrequencyDomain" clockGating="false"/>
-    <domains xsi:type="am:FrequencyDomain" xmi:id="CANBusFrequencyDomain?type=FrequencyDomain" name="CANBusFrequencyDomain" clockGating="false"/>
+    <domains xsi:type="am:FrequencyDomain" xmi:id="FlashFrequencyDomain?type=FrequencyDomain" name="FlashFrequencyDomain" clockGating="false">
+      <defaultValue value="1.0" unit="GHz"/>
+    </domains>
+    <domains xsi:type="am:FrequencyDomain" xmi:id="CANBusFrequencyDomain?type=FrequencyDomain" name="CANBusFrequencyDomain" clockGating="false">
+      <defaultValue value="1.0" unit="GHz"/>
+    </domains>
   </hwModel>
   <osModel>
     <operatingSystems name="">
@@ -402,8 +561,9 @@
       <taskSchedulers xmi:id="Task_Scheduler_Core3?type=TaskScheduler" name="Task_Scheduler_Core3" definition="OSEK?type=SchedulerDefinition"/>
       <taskSchedulers xmi:id="Task_Scheduler_Core4?type=TaskScheduler" name="Task_Scheduler_Core4" definition="OSEK?type=SchedulerDefinition"/>
     </operatingSystems>
-    <schedulerDefinitions xmi:id="OSEK?type=SchedulerDefinition" name="OSEK" description="OSEK" processParameters="Priority?type=SchedulingParameterDefinition" requiresParentScheduler="false" passesParametersUpwards="false" hasExactlyOneChild="false"/>
-    <schedulingParameterDefinitions xmi:id="Priority?type=SchedulingParameterDefinition" name="Priority" type="Time" many="false" mandatory="true"/>
+    <schedulerDefinitions xmi:id="OSEK?type=SchedulerDefinition" name="OSEK" description="OSEK" processParameters="priority?type=SchedulingParameterDefinition taskGroup?type=SchedulingParameterDefinition" requiresParentScheduler="false" passesParametersUpwards="false" hasExactlyOneChild="false"/>
+    <schedulingParameterDefinitions xmi:id="priority?type=SchedulingParameterDefinition" name="priority" type="Integer" many="false" mandatory="true"/>
+    <schedulingParameterDefinitions xmi:id="taskGroup?type=SchedulingParameterDefinition" name="taskGroup" type="Integer" many="false" mandatory="true"/>
   </osModel>
   <stimuliModel>
     <stimuli xsi:type="am:PeriodicStimulus" xmi:id="Timer_5ms?type=PeriodicStimulus" name="Timer_5ms">
@@ -437,38 +597,38 @@
     </requirements>
   </constraintsModel>
   <mappingModel>
-    <schedulerAllocation scheduler="Task_Scheduler_Core1?type=TaskScheduler" responsibility="ARM+Cortex-A53_1?type=ProcessingUnit"/>
-    <schedulerAllocation scheduler="Task_Scheduler_Core2?type=TaskScheduler" responsibility="ARM+Cortex-A53_2?type=ProcessingUnit" executingPU="ARM+Cortex-A53_2?type=ProcessingUnit"/>
-    <schedulerAllocation scheduler="Task_Scheduler_Core3?type=TaskScheduler" responsibility="ARM+Cortex-A53_3?type=ProcessingUnit" executingPU="ARM+Cortex-A53_3?type=ProcessingUnit"/>
-    <schedulerAllocation scheduler="Task_Scheduler_Core4?type=TaskScheduler" responsibility="ARM+Cortex-A53_4?type=ProcessingUnit" executingPU="ARM+Cortex-A53_4?type=ProcessingUnit"/>
+    <schedulerAllocation scheduler="Task_Scheduler_Core1?type=TaskScheduler" responsibility="ARM_Cortex_A53_1?type=ProcessingUnit"/>
+    <schedulerAllocation scheduler="Task_Scheduler_Core2?type=TaskScheduler" responsibility="ARM_Cortex_A53_2?type=ProcessingUnit" executingPU="ARM_Cortex_A53_2?type=ProcessingUnit"/>
+    <schedulerAllocation scheduler="Task_Scheduler_Core3?type=TaskScheduler" responsibility="ARM_Cortex_A53_3?type=ProcessingUnit" executingPU="ARM_Cortex_A53_3?type=ProcessingUnit"/>
+    <schedulerAllocation scheduler="Task_Scheduler_Core4?type=TaskScheduler" responsibility="ARM_Cortex_A53_4?type=ProcessingUnit" executingPU="ARM_Cortex_A53_4?type=ProcessingUnit"/>
     <taskAllocation task="ObjectDetection?type=Task" scheduler="Task_Scheduler_Core1?type=TaskScheduler">
-      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
-        <value xsi:type="am:Time" value="20" unit="ms"/>
+      <schedulingParameters key="priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:IntegerObject" value="20"/>
       </schedulingParameters>
     </taskAllocation>
     <taskAllocation task="DecisionMaking?type=Task" scheduler="Task_Scheduler_Core1?type=TaskScheduler">
-      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
-        <value xsi:type="am:Time" value="10" unit="ms"/>
+      <schedulingParameters key="priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:IntegerObject" value="10"/>
       </schedulingParameters>
     </taskAllocation>
     <taskAllocation task="SensorDataProcessing?type=Task" scheduler="Task_Scheduler_Core2?type=TaskScheduler">
-      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
-        <value xsi:type="am:Time" value="10" unit="ms"/>
+      <schedulingParameters key="priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:IntegerObject" value="10"/>
       </schedulingParameters>
     </taskAllocation>
     <taskAllocation task="Classification?type=Task" scheduler="Task_Scheduler_Core3?type=TaskScheduler">
-      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
-        <value xsi:type="am:Time" value="10" unit="ms"/>
+      <schedulingParameters key="priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:IntegerObject" value="10"/>
       </schedulingParameters>
     </taskAllocation>
     <taskAllocation task="ActuatorControl?type=Task" scheduler="Task_Scheduler_Core4?type=TaskScheduler">
-      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
-        <value xsi:type="am:Time" value="5" unit="ms"/>
+      <schedulingParameters key="priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:IntegerObject" value="5"/>
       </schedulingParameters>
     </taskAllocation>
     <taskAllocation task="HandleConnection?type=Task" scheduler="Task_Scheduler_Core4?type=TaskScheduler">
-      <schedulingParameters key="Priority?type=SchedulingParameterDefinition">
-        <value xsi:type="am:Time" value="10" unit="ms"/>
+      <schedulingParameters key="priority?type=SchedulingParameterDefinition">
+        <value xsi:type="am:IntegerObject" value="10"/>
       </schedulingParameters>
     </taskAllocation>
   </mappingModel>
