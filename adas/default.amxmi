@@ -52,6 +52,8 @@
           <items xsi:type="am:RunnableCall" runnable="BrakeForceActuation?type=Runnable"/>
           <items xsi:type="am:RunnableCall" runnable="BrakeActuator?type=Runnable"/>
           <items xsi:type="am:RunnableCall" runnable="StopLightActuator?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="AbsCalculation?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="BrakeActuatorMonitor?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
@@ -70,6 +72,7 @@
           <items xsi:type="am:RunnableCall" runnable="Init_Ethernet_Controller?type=Runnable"/>
           <items xsi:type="am:RunnableCall" runnable="Error_Handler_Ethernet?type=Runnable"/>
           <items xsi:type="am:RunnableCall" runnable="Diagnostic_Check_Ethernet?type=Runnable"/>
+          <items xsi:type="am:RunnableCall" runnable="EstablishConnection?type=Runnable"/>
         </items>
       </activityGraph>
     </tasks>
